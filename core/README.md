@@ -16,8 +16,8 @@ const view = getTimeGridView({ viewDate: new Date(), days: 7, events });
 // view.days[i].events[j] → { offsetMinutes, durationMinutes, left, width, level, … }
 ```
 
-`theme.css` holds the color tokens of the default web theme:
-`@import '@moobitech/meridiana-core/theme.css';`.
+The Tailwind entry and the color tokens of the default web theme are in
+[`@moobitech/meridiana`](https://www.npmjs.com/package/@moobitech/meridiana).
 
 Documentation: [Core engine](https://github.com/moobitech/meridiana-docs/blob/main/docs/core.md), [Theming](https://github.com/moobitech/meridiana-docs/blob/main/docs/theming.md),
 [Events and interactions](https://github.com/moobitech/meridiana-docs/blob/main/docs/events-and-interactions.md).

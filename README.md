@@ -9,6 +9,7 @@ interactions; thin renderers draw them for each platform, so every app behaves t
 
 | Package | For | What you get |
 | --- | --- | --- |
+| [`@moobitech/meridiana`](meridiana/README.md) | Tailwind CSS | The Tailwind entry (`tailwind.css`), with the color tokens of the default web theme |
 | [`@moobitech/meridiana-core`](core/README.md) | any TypeScript | The engine: view layouts, navigation, interaction state machine, theme. No UI. |
 | [`@moobitech/meridiana-angular`](angular/README.md) | Angular 22 | `<mer-time-grid>`, `<mer-month-grid>`, `<mer-agenda>` |
 | [`@moobitech/meridiana-react`](react/README.md) | React 19 (DOM) | `MeridianaTimeGrid`, `MeridianaMonthGrid`, `MeridianaAgenda`, and DOM-free hooks |
@@ -36,7 +37,7 @@ interactions; thin renderers draw them for each platform, so every app behaves t
 ## Quick start
 
 ```sh
-npm install @moobitech/meridiana-core @moobitech/meridiana-react date-fns
+npm install @moobitech/meridiana @moobitech/meridiana-core @moobitech/meridiana-react date-fns
 ```
 
 ```tsx
@@ -64,8 +65,7 @@ export function Planner({ events, save }) {
 ```css
 /* your Tailwind entry */
 @import 'tailwindcss';
-@import '@moobitech/meridiana-core/theme.css';
-@source '../node_modules/@moobitech';
+@import '@moobitech/meridiana';
 ```
 
 The same calendar in [Angular](docs/angular.md) and [React Native](docs/react-native.md).

@@ -8,17 +8,18 @@ react-native-web.
 ## Setup
 
 ```sh
-npm install @moobitech/meridiana-core @moobitech/meridiana-react @moobitech/meridiana-native date-fns
+npm install @moobitech/meridiana @moobitech/meridiana-core @moobitech/meridiana-react @moobitech/meridiana-native date-fns
 npx expo install react-native-gesture-handler uniwind
 ```
 
 1. Configure Uniwind as its documentation says (`withUniwindConfig` in `metro.config.js`, a CSS entry).
-2. Add the classes of Meridiana to the CSS entry:
+2. Add the classes of Meridiana to the CSS entry (Tailwind skips `node_modules`, see
+   [Getting started](getting-started.md#2-tailwind-css)):
 
    ```css
    @import 'tailwindcss';
    @import 'uniwind';
-   @source '../node_modules/@moobitech/meridiana-native';
+   @import '@moobitech/meridiana';
    ```
 
 3. Wrap the app in `GestureHandlerRootView` and the provider:

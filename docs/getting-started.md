@@ -2,22 +2,24 @@
 
 ## 1. Install
 
-Every renderer needs the core and `date-fns` 4. Pick the renderer of your platform:
+Every renderer needs the core, the Tailwind entry `@moobitech/meridiana` and `date-fns` 4. Pick
+the renderer of your platform:
 
 ```sh
 # Angular
-npm install @moobitech/meridiana-core @moobitech/meridiana-angular @angular/cdk date-fns
+npm install @moobitech/meridiana @moobitech/meridiana-core @moobitech/meridiana-angular @angular/cdk date-fns
 
 # React (DOM)
-npm install @moobitech/meridiana-core @moobitech/meridiana-react date-fns
+npm install @moobitech/meridiana @moobitech/meridiana-core @moobitech/meridiana-react date-fns
 
 # React Native / Expo
-npm install @moobitech/meridiana-core @moobitech/meridiana-react @moobitech/meridiana-native date-fns
+npm install @moobitech/meridiana @moobitech/meridiana-core @moobitech/meridiana-react @moobitech/meridiana-native date-fns
 npx expo install react-native-gesture-handler
 ```
 
 | Package | Peer dependencies |
 | --- | --- |
+| `@moobitech/meridiana` | `@moobitech/meridiana-core` and, when installed, the renderers |
 | `@moobitech/meridiana-core` | `date-fns` ^4 |
 | `@moobitech/meridiana-angular` | `@angular/core`, `@angular/common`, `@angular/cdk` ^22 |
 | `@moobitech/meridiana-react` | `react`, `react-dom` ^19 |
@@ -25,30 +27,43 @@ npx expo install react-native-gesture-handler
 
 ## 2. Tailwind CSS
 
-Meridiana ships Tailwind classes, not a stylesheet: your Tailwind build generates them. Tell Tailwind
-where the classes are and import the color tokens of the default theme.
+Meridiana ships Tailwind classes, not a stylesheet: your Tailwind build generates them. The classes
+live in the JavaScript of the packages, in `node_modules`, and Tailwind v4 skips `node_modules`:
+without the step below some classes are never generated. There is no error, only elements out of
+place, and it is easy to miss, because your app may already use most of the same classes.
+
+Import `@moobitech/meridiana` next to Tailwind, as you import `tailwindcss`. It points Tailwind to
+the packages you installed, with paths relative to itself, so it works with npm, yarn and pnpm and
+from any folder. Import it with any theme, your own too: the components carry layout classes of
+their own that no theme replaces. It also brings the color tokens of the default web theme (`--mer-*`); a theme of
+your own ignores them.
 
 **Web (Angular, React)** — Tailwind v4 entry:
 
 ```css
 @import 'tailwindcss';
-@import '@moobitech/meridiana-core/theme.css';
-@source '../node_modules/@moobitech';
+@import '@moobitech/meridiana';
 
 /* Optional: dark mode with the .dark class */
 @custom-variant dark (&:where(.dark, .dark *));
 ```
 
-Adjust the `@source` path to where `node_modules` is, relative to the CSS file.
+If a tool in your CSS pipeline does not resolve the `style` condition of package exports (a bundler
+or a `postcss-import` setup outside Tailwind v4), import the file by its path instead; it is the
+same file:
 
-**React Native** — Meridiana uses [Uniwind](https://uniwind.dev). Add the sources to the CSS entry of
-Uniwind; the default native theme uses the color tokens of gluestack-ui (see
+```css
+@import '@moobitech/meridiana/tailwind.css';
+```
+
+**React Native** — Meridiana uses [Uniwind](https://uniwind.dev). Import the same package in the CSS
+entry of Uniwind; the default native theme uses the color tokens of gluestack-ui (see
 [React Native](react-native.md)):
 
 ```css
 @import 'tailwindcss';
 @import 'uniwind';
-@source '../node_modules/@moobitech/meridiana-native';
+@import '@moobitech/meridiana';
 ```
 
 ## 3. Provider

@@ -11,10 +11,10 @@ There are three levels of customization.
 ## 1. Colors only: CSS variables
 
 The default web theme reads its colors from the `--mer-*` variables of
-`@moobitech/meridiana-core/theme.css`. Import it and override what you need:
+`@moobitech/meridiana`, which you already import. Override what you need after it:
 
 ```css
-@import '@moobitech/meridiana-core/theme.css';
+@import '@moobitech/meridiana';
 
 :root {
   --mer-accent: #0f766e;
@@ -37,7 +37,7 @@ The default web theme reads its colors from the `--mer-*` variables of
 | `--mer-ok`, `--mer-warning`, `--mer-danger` | status dots, invalid previews, danger menu entries |
 | `--mer-event-bg`, `--mer-event-border`, `--mer-event-text` | default colors of the events |
 
-Dark mode follows the `.dark` class: `theme.css` defines a dark palette under `.dark`. Add
+Dark mode follows the `.dark` class: the tokens have a dark palette under `.dark`. Add
 `@custom-variant dark (&:where(.dark, .dark *));` to your Tailwind entry to toggle it with the class.
 
 The colors of a single event (`event.color`) override the variables for that event only.
@@ -112,11 +112,18 @@ The list is also exported as `MERIDIANA_SLOT_STATES`.
 ## Tailwind sources
 
 The theme classes live in the JavaScript of the packages and in your theme file, so Tailwind must
-scan both. Tailwind v4 detects your own sources; add the packages:
+scan both. Tailwind v4 detects your own sources but skips `node_modules`; import
+`@moobitech/meridiana` for the packages (see [Getting started](getting-started.md#2-tailwind-css)).
+Import it with your own theme too: the components carry layout
+classes that no slot replaces.
 
 ```css
-@source '../node_modules/@moobitech';
+@import 'tailwindcss';
+@import '@moobitech/meridiana';
 ```
+
+Without it there is no error: the classes that your app does not use elsewhere are missing, and some
+elements are out of place.
 
 ## React Native
 
