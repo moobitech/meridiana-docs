@@ -1,3 +1,9 @@
+## 0.2.1 (2026-10-16)
+
+### Documentation
+
+- **global:** theming, the default event colors and the event variables
+
 ## 0.2.0 (2026-10-16)
 
 ### Features

@@ -19,9 +19,9 @@ The default web theme reads its colors from the `--mer-*` variables of
 :root {
   --mer-accent: #0f766e;
   --mer-today: #f0fdfa;
-  --mer-event-bg: #ccfbf1;
-  --mer-event-border: #0f766e;
-  --mer-event-text: #134e4a;
+  --mer-default-event-bg: #ccfbf1;
+  --mer-default-event-border: #0f766e;
+  --mer-default-event-text: #134e4a;
 }
 ```
 
@@ -35,12 +35,15 @@ The default web theme reads its colors from the `--mer-*` variables of
 | `--mer-accent`, `--mer-accent-contrast` | today's number, active buttons |
 | `--mer-now` | the current-time line |
 | `--mer-ok`, `--mer-warning`, `--mer-danger` | status dots, invalid previews, danger menu entries |
-| `--mer-event-bg`, `--mer-event-border`, `--mer-event-text` | default colors of the events |
+| `--mer-default-event-bg`, `--mer-default-event-border`, `--mer-default-event-text` | colors of the events without a color of their own |
 
 Dark mode follows the `.dark` class: the tokens have a dark palette under `.dark`. Add
 `@custom-variant dark (&:where(.dark, .dark *));` to your Tailwind entry to toggle it with the class.
 
-The colors of a single event (`event.color`) override the variables for that event only.
+The colors of a single event (`event.color`) arrive on that event as `--mer-event-border` and
+`--mer-event-color` (`primary`), `--mer-event-bg` (`secondary`) and `--mer-event-text` (`text`). The
+default theme reads them first and falls back to `--mer-default-event-*`. Never set `--mer-event-*`
+on `:root`: it would replace the fallback of every event without that color.
 
 ## 2. Small changes: extend the default theme
 
@@ -80,6 +83,13 @@ provideMeridiana({
 
 Keep the layout classes of the slots you replace (`absolute` on `event`, `flex` on `dayHeader`…):
 the defaults in `meridianaDefaultTheme` are a good starting point to copy.
+
+To use the colors of the events, read their variables with a fallback of your design system, for
+the events whose color lacks that part:
+
+```ts
+event: 'border-l-4 border-[var(--mer-event-border,var(--color-primary))] bg-[var(--mer-event-bg,white)] …',
+```
 
 ## Slots and states
 
