@@ -97,9 +97,13 @@ Helpers: `moveEvent`, `resizeEvent` (apply a change by steps), `pointToSlot`,
 
 ## License key
 
-`setLicenseKey(key)` sets the key; the providers call it for you. `getLicenseStatus()` checks it
-(offline, once per key) and returns `{ status: 'valid' | 'missing' | 'invalid' | 'expired', licensee?,
-id?, exp? }`; the first time the key is not valid it warns in the console. `MERIDIANA_RELEASE_DATE`
+`setLicenseKey(key)` sets the key; the providers call it for you. `getLicenseStatus({ product, app })`
+checks it (offline, once per key and context) for a product (`'web'`, `'native'`, `'timeline'`) and an
+application (host or bundle id; without it the application is not checked), and returns
+`{ status: 'valid' | 'missing' | 'invalid' | 'expired' | 'wrong-app' | 'missing-product', licensee?,
+id?, exp?, plan? }`; without arguments it checks `'web'` on the host of the page. The first time the
+key is not valid it warns in the console. `matchesApp(apps, app)` is the matching rule of the hosts
+and bundle ids. `MERIDIANA_RELEASE_DATE`
 is the release date of the running version. A custom renderer draws a watermark while the status is
 not `valid`, as the built-in views do; `licenseNotice(status)` returns the text of their banner (empty
-for a valid key). See [Licensing](licensing.md).
+for a valid key), which they follow with a link to `MERIDIANA_LICENSE_URL`, the pricing page. See [Licensing](licensing.md).

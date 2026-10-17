@@ -81,18 +81,23 @@ The same calendar in [Angular](docs/angular.md) and [React Native](docs/react-na
 6. [React Native](docs/react-native.md) — setup with Expo, gestures, bottom sheet, gluestack-ui
 7. [Core engine](docs/core.md) — the layout and interaction API, to build your own renderer
 8. [Licensing](docs/licensing.md) — evaluation, license key, renewals, how the offline check works
+9. [Pricing](docs/pricing.md) — plans and how to request a license
+10. [Roadmap](docs/roadmap.md) — what is planned, starting with the resource timeline
 
 ## Demos
 
 Every view and interaction runs in a demo for React, Angular and React Native. A hosted demo is
-coming; until then, ask for a live demo at the contact in [`LICENSE.md`](LICENSE.md).
+on the [roadmap](docs/roadmap.md); until then, ask for a live demo at the contact in
+[Pricing](docs/pricing.md).
 
 ## License
 
-Meridiana is commercial software. You may evaluate it for 30 days in a non-production environment;
-any other use needs a license, purchased per developer, which lets you ship Meridiana inside your
-applications to any number of end users without royalties. Without a key the views show a banner
-and a large diagonal watermark. See [Licensing](docs/licensing.md), [`LICENSE.md`](LICENSE.md) and the
+Meridiana is commercial software, licensed per application with unlimited developers. The Angular
+and React views are free for individuals, open-source projects and small companies (Community
+plan); React Native, and the resource timeline when it ships, need a paid plan. You may evaluate it
+for 30 days in a non-production environment. A license lets you ship Meridiana inside your
+application to any number of end users without royalties. Without a key the views show a banner
+and a large diagonal watermark. See [Pricing](docs/pricing.md), [Licensing](docs/licensing.md), [`LICENSE.md`](LICENSE.md) and the
 peer dependencies in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
 
 © Moobi Tech S.r.l.s.

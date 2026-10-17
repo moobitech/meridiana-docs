@@ -7,7 +7,7 @@ color tokens of gluestack-ui.
 
 ```sh
 npm install @moobitech/meridiana-core @moobitech/meridiana-react @moobitech/meridiana-native date-fns
-npx expo install react-native-gesture-handler uniwind
+npx expo install react-native-gesture-handler uniwind expo-application
 ```
 
 ```tsx
@@ -23,6 +23,5 @@ import { MeridianaProvider, MeridianaTimeGrid } from '@moobitech/meridiana-nativ
 
 Documentation: [React Native](https://github.com/moobitech/meridiana-docs/blob/main/docs/react-native.md), [Theming](https://github.com/moobitech/meridiana-docs/blob/main/docs/theming.md#react-native).
 
-Peer dependencies: `react` 19, `react-native`, `react-native-gesture-handler` 2,
-`@moobitech/meridiana-react`, `date-fns` 4; Uniwind in the application. Commercial license: see
-`LICENSE.md`.
+Peer dependencies: `react` 19, `react-native`, `react-native-gesture-handler` 2, `expo-application`,
+`@moobitech/meridiana-react`, `date-fns` 4; Uniwind in the application. React Native always needs a paid license (Web + Mobile): see `LICENSE.md`.

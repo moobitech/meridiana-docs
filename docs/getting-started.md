@@ -14,7 +14,7 @@ npm install @moobitech/meridiana @moobitech/meridiana-core @moobitech/meridiana-
 
 # React Native / Expo
 npm install @moobitech/meridiana @moobitech/meridiana-core @moobitech/meridiana-react @moobitech/meridiana-native date-fns
-npx expo install react-native-gesture-handler
+npx expo install react-native-gesture-handler expo-application
 ```
 
 | Package | Peer dependencies |
@@ -23,7 +23,7 @@ npx expo install react-native-gesture-handler
 | `@moobitech/meridiana-core` | `date-fns` ^4 |
 | `@moobitech/meridiana-angular` | `@angular/core`, `@angular/common`, `@angular/cdk` ^22 |
 | `@moobitech/meridiana-react` | `react`, `react-dom` ^19 |
-| `@moobitech/meridiana-native` | `react` ^19, `react-native`, `react-native-gesture-handler` ^2, `@moobitech/meridiana-react` |
+| `@moobitech/meridiana-native` | `react` ^19, `react-native`, `react-native-gesture-handler` ^2, `expo-application` (the bundle id, for the license key), `@moobitech/meridiana-react` |
 
 ## 2. Tailwind CSS
 

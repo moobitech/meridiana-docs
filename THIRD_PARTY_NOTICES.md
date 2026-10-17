@@ -17,4 +17,5 @@ It works with these peer dependencies, which the application installs under thei
 | `react` | `@moobitech/meridiana-react`, `@moobitech/meridiana-native` | MIT |
 | `react-dom` | `@moobitech/meridiana-react` | MIT |
 | `react-native`, `react-native-gesture-handler` | `@moobitech/meridiana-native` | MIT |
+| `expo-application` (the bundle id, for the license key) | `@moobitech/meridiana-native` | MIT |
 | `uniwind` (in the application, to turn the classes into styles) | `@moobitech/meridiana-native` | MIT |

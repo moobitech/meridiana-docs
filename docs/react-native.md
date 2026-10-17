@@ -9,7 +9,7 @@ react-native-web.
 
 ```sh
 npm install @moobitech/meridiana @moobitech/meridiana-core @moobitech/meridiana-react @moobitech/meridiana-native date-fns
-npx expo install react-native-gesture-handler uniwind
+npx expo install react-native-gesture-handler uniwind expo-application
 ```
 
 1. Configure Uniwind as its documentation says (`withUniwindConfig` in `metro.config.js`, a CSS entry).

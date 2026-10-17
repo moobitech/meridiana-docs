@@ -1,0 +1,13 @@
+{
+  "name": "meridiana-site",
+  "private": true,
+  "description": "Site of the Meridiana docs, built by .github/workflows/pages.yml",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build"
+  },
+  "devDependencies": {
+    "vitepress": "1.6.4"
+  }
+}
