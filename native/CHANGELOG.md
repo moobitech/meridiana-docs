@@ -1,3 +1,9 @@
+## 0.4.1 (2026-10-22)
+
+### Fixes
+
+- **native:** menu backdrop fades in while only the sheet slides up
+
 ## 0.4.0 (2026-10-22)
 
 ### Features
