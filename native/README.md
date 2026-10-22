@@ -23,5 +23,5 @@ import { MeridianaProvider, MeridianaTimeGrid } from '@moobitech/meridiana-nativ
 
 Documentation: [React Native](https://github.com/moobitech/meridiana-docs/blob/main/docs/react-native.md), [Theming](https://github.com/moobitech/meridiana-docs/blob/main/docs/theming.md#react-native).
 
-Peer dependencies: `react` 19, `react-native`, `react-native-gesture-handler` 2, `expo-application`,
+Peer dependencies: `react` 19, `react-native` 0.88+, `react-native-gesture-handler` 3 (Expo SDK 58+), `expo-application`,
 `@moobitech/meridiana-react`, `date-fns` 4; Uniwind in the application. React Native always needs a paid license (Web + Mobile): see `LICENSE.md`.

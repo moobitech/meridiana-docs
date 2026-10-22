@@ -1,3 +1,14 @@
+## 0.4.0 (2026-10-22)
+
+### Features
+
+- ⚠️  **global:** the React Native views on the hooks of Gesture Handler 3
+
+### ⚠️  Breaking Changes
+
+- **global:** the React Native views on the hooks of Gesture Handler 3
+  @moobitech/meridiana-native needs react-native-gesture-handler 3 and react-native 0.88 or later (Expo SDK 58).
+
 ## 0.3.0 (2026-10-17)
 
 ### Features
