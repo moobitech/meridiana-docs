@@ -87,5 +87,8 @@ text slots, `data-*` states with the value `true`, event colors as styles.
 
 - Third-party components do not take `className` with Uniwind (e.g. `SafeAreaView` from
   react-native-safe-area-context): give them a `style`, and the classes to a `View` inside.
+- With Reanimated 4 the Babel plugin of `react-native-worklets` (added by `babel-preset-expo`) turns
+  the configuration objects of the gesture hooks into worklets; Meridiana builds them so that the
+  plugin accepts them (from 0.4.2), and its callbacks run on the JS thread.
 - In a monorepo that consumes the TypeScript sources of the packages, Metro must resolve the
   `./file.js` imports of the sources to `.ts` files; the published packages need nothing.

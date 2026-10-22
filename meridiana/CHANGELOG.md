@@ -1,3 +1,9 @@
+## 0.4.2 (2026-10-22)
+
+### Fixes
+
+- **@moobitech/meridiana-native:** pan gestures of the time grid accepted by the Babel plugin of react-native-worklets
+
 ## 0.4.1 (2026-10-22)
 
 This was a version bump only for @moobitech/meridiana to align it with other projects, there were no code changes.
