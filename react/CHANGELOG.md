@@ -1,3 +1,9 @@
+## 0.4.3 (2026-10-24)
+
+### Fixes
+
+- **global:** the license of the packages as an SPDX reference, LicenseRef-Meridiana-Commercial, instead of "SEE LICENSE IN LICENSE.md"; the text stays in LICENSE.md of each package
+
 ## 0.4.2 (2026-10-22)
 
 ### Fixes
