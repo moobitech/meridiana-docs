@@ -69,8 +69,9 @@ The props are those of the React components (see [React](react.md)), with these 
 | `MeridianaMonthGrid` | | |
 | `MeridianaAgenda` | | |
 
-`theme` takes a `Partial<MeridianaNativeTheme>`; `renderEvent` and `renderMenuItem` return React
-Native elements.
+`theme` takes a `Partial<MeridianaNativeTheme>`; `renderEvent`, `renderDot` and `renderMenuItem`
+return React Native elements. On a phone the month shows dots: `renderDot` draws the mark of an
+event there.
 
 ## Theme
 

@@ -1,3 +1,9 @@
+## 0.4.4 (2026-10-26)
+
+### Features
+
+- **global:** renderDot and dotTemplate, the mark of an event in a compact Month cell
+
 ## 0.4.3 (2026-10-24)
 
 ### Fixes

@@ -121,6 +121,7 @@ two lines), `roomy` (room for the description), `narrow` (title only), `disabled
 | `responsive` | `true` | colored dots under 640px |
 | `isEventDisabled`, `eventMenu`, `dayMenu` | | |
 | `eventTemplate` | — | `TemplateRef<MonthEventContext<T>>`: `$implicit` (the event), `timeLabel`, `disabled` |
+| `dotTemplate` | — | the mark of an event in a compact cell instead of the colored dot; same context as `eventTemplate` |
 | `menuItemTemplate` | — | |
 | `moreLabel` | `` n => `+${n} more` `` | |
 

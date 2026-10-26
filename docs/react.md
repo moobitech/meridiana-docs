@@ -77,7 +77,8 @@ Callbacks: `onEventClick`, `onSlotClick`, `onDayHeaderClick`, `onEventChange`, `
 Props: `events`, `viewDate`, `weekStartsOn`, `excludeDays`, `fixedWeeks`, `locale`,
 `maxEventsPerDay`, `responsive` (dots under 640px, default `true`), `theme`, `isEventDisabled`,
 `eventMenu`, `dayMenu`, `moreLabel`, `renderEvent(row)` (`row`: `{ event, timeLabel, disabled, … }`),
-`renderMenuItem`. Callbacks: `onEventClick`, `onDayClick`.
+`renderDot(row)` (the mark of an event in a compact cell instead of the colored dot, e.g. an icon for
+a state), `renderMenuItem`. Callbacks: `onEventClick`, `onDayClick`.
 
 ## `MeridianaAgenda` — Agenda
 
