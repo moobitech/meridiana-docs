@@ -70,9 +70,28 @@ export function docsMarkdown(md: MarkdownRenderer) {
     const content = tokens[idx].content;
     if (content.length > 24 && /\s/.test(content)) tokens[idx].attrJoin('class', 'code-wrap');
 
-    return codeInline
-      ? codeInline(tokens, idx, options, env, self)
-      : self.renderToken(tokens, idx, options);
+    // A color (`#4f46e5`) gets a chip of itself before it
+    const chip = /^#[0-9a-f]{6}$/i.test(content)
+      ? `<span class="color-chip" style="background:${content}" aria-hidden="true"></span>`
+      : '';
+
+    return (
+      chip +
+      (codeInline
+        ? codeInline(tokens, idx, options, env, self)
+        : self.renderToken(tokens, idx, options))
+    );
+  };
+
+  // ```mermaid blocks are diagrams (MermaidDiagram.vue), as on GitHub
+  const fence = md.renderer.rules.fence;
+  md.renderer.rules.fence = (tokens, idx, options, env, self) => {
+    const token = tokens[idx];
+    if (token.info.trim() === 'mermaid') {
+      return `<MermaidDiagram code="${encodeURIComponent(token.content)}" />\n`;
+    }
+
+    return fence ? fence(tokens, idx, options, env, self) : self.renderToken(tokens, idx, options);
   };
 
   // Tables scroll inside a frame that tells when there is more on the right (theme/tables.ts)

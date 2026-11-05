@@ -94,14 +94,6 @@ their own that no theme replaces. It also brings the color tokens of the default
 
 <!-- tabs -->
 
-```css [React Native]
-/* React Native */
-/* CSS entry of Uniwind */
-@import 'tailwindcss';
-@import 'uniwind';
-@import '@moobitech/meridiana';
-```
-
 ```css [Web]
 /* Web */
 /* Tailwind v4 entry (Angular, React) */
@@ -110,6 +102,14 @@ their own that no theme replaces. It also brings the color tokens of the default
 
 /* Optional: dark mode with the .dark class */
 @custom-variant dark (&:where(.dark, .dark *));
+```
+
+```css [React Native]
+/* React Native */
+/* CSS entry of Uniwind */
+@import 'tailwindcss';
+@import 'uniwind';
+@import '@moobitech/meridiana';
 ```
 
 <!-- /tabs -->

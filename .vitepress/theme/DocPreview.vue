@@ -17,6 +17,9 @@ const tab = ref<'preview' | 'code'>(LIVE_DEMO ? 'preview' : 'code');
 const frame = ref<HTMLIFrameElement>();
 const src = ref<string>();
 const height = ref<number>();
+const codePanel = ref<HTMLElement>();
+// The version picked above the example, when it has some (previews.ts)
+const variant = ref(PREVIEWS[props.id]?.variants?.[0]?.[0]);
 
 const info = computed(() => PREVIEWS[props.id]);
 const title = computed(() => `Live example: ${info.value?.title ?? props.id.replace(/-/g, ' ')}`);
@@ -41,10 +44,34 @@ function resize(event: MessageEvent) {
 onMounted(() => {
   window.addEventListener('message', resize);
   src.value = withBase(
-    `${DEMO_PATH}index.html?preview=${encodeURIComponent(props.id)}&theme=${isDark.value ? 'dark' : 'light'}`,
+    `${DEMO_PATH}index.html?preview=${encodeURIComponent(props.id)}&theme=${isDark.value ? 'dark' : 'light'}${variant.value ? `&variant=${variant.value}` : ''}`,
   );
+  codePanel.value?.addEventListener('click', followCodeTab);
 });
 onBeforeUnmount(() => window.removeEventListener('message', resize));
+
+// A version picked above: the example draws it, the Code tab shows its block
+function pick(id: string) {
+  variant.value = id;
+  frame.value?.contentWindow?.postMessage(
+    { type: 'meridiana-preview-variant', variant: id },
+    window.location.origin,
+  );
+  const title = info.value?.variants?.find(([candidate]) => candidate === id)?.[1];
+  const label = [
+    ...(codePanel.value?.querySelectorAll<HTMLLabelElement>('.tabs label') ?? []),
+  ].find((candidate) => candidate.dataset.title === title);
+  const input = label && (document.getElementById(label.htmlFor) as HTMLInputElement | null);
+  if (input && !input.checked) input.click();
+}
+
+// A block picked in the Code tab picks its version too
+function followCodeTab(event: MouseEvent) {
+  const title = (event.target as Element | null)?.closest<HTMLLabelElement>('.tabs label')?.dataset
+    .title;
+  const id = info.value?.variants?.find(([, candidate]) => candidate === title)?.[0];
+  if (id && id !== variant.value && event.isTrusted) pick(id);
+}
 
 watch(isDark, (dark) => {
   frame.value?.contentWindow?.postMessage(
@@ -56,6 +83,26 @@ watch(isDark, (dark) => {
 
 <template>
   <div class="doc-preview" :class="{ 'is-code': tab === 'code' }">
+    <div
+      v-if="info?.variants"
+      class="doc-preview-variants"
+      role="tablist"
+      aria-label="Theme of the example"
+      @keydown="onTabKeydown"
+    >
+      <button
+        v-for="[key, label] in info.variants"
+        :key="key"
+        type="button"
+        role="tab"
+        :aria-selected="variant === key"
+        :aria-controls="`${uid}-panel-${tab}`"
+        :tabindex="variant === key ? 0 : -1"
+        @click="pick(key)"
+      >
+        {{ label }}
+      </button>
+    </div>
     <div v-if="LIVE_DEMO" class="doc-preview-head">
       <div class="doc-preview-tabs" role="tablist" aria-label="Example" @keydown="onTabKeydown">
         <button
@@ -107,6 +154,7 @@ watch(isDark, (dark) => {
     <div
       v-show="tab === 'code'"
       :id="`${uid}-panel-code`"
+      ref="codePanel"
       class="doc-preview-code"
       :role="LIVE_DEMO ? 'tabpanel' : undefined"
       :aria-labelledby="LIVE_DEMO ? `${uid}-tab-code` : undefined"

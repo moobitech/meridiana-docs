@@ -5,6 +5,9 @@ import { ref, watch } from 'vue';
 
 export const FRAMEWORKS = ['Angular', 'React', 'React Native'];
 
+/** The frameworks of a "Web" tab. */
+const WEB = ['Angular', 'React'];
+
 const FRAMEWORK_KEY = 'meridiana-docs-framework';
 const MANAGER_KEY = 'meridiana-docs-package-manager';
 
@@ -38,8 +41,14 @@ export function syncCodeGroups() {
   loadChoices();
   if (!framework.value) return;
 
-  for (const label of document.querySelectorAll<HTMLLabelElement>('.vp-code-group .tabs label')) {
-    if (label.dataset.title !== framework.value) continue;
+  // A group without the framework may name its platform: "Web" for Angular and React
+  const wanted = [framework.value, ...(WEB.includes(framework.value) ? ['Web'] : [])];
+  for (const group of document.querySelectorAll<HTMLElement>('.vp-code-group')) {
+    const labels = [...group.querySelectorAll<HTMLLabelElement>('.tabs label')];
+    const label = wanted
+      .map((title) => labels.find((candidate) => candidate.dataset.title === title))
+      .find(Boolean);
+    if (!label) continue;
 
     const input = document.getElementById(label.htmlFor) as HTMLInputElement | null;
     if (input && !input.checked) input.click();

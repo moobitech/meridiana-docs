@@ -149,31 +149,31 @@ html {
   font-weight: 600;
   line-height: 24px;
 }
-.VPSidebar .group .VPSidebarItem.level-1 .item {
+.VPSidebar .group .VPSidebarItem:is(.level-1, .level-2) .item {
   position: relative;
 }
-.VPSidebar .group .VPSidebarItem.level-1 .link {
+.VPSidebar .group .VPSidebarItem:is(.level-1, .level-2) .link {
   margin: 1px 0 1px -8px;
   padding: 0 8px;
   border-radius: 6px;
 }
-.VPSidebar .group .VPSidebarItem.level-1 .text {
+.VPSidebar .group .VPSidebarItem:is(.level-1, .level-2) .text {
   padding: 5px 0;
   color: var(--vp-c-text-2);
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
 }
-.VPSidebar .group .VPSidebarItem.level-1 .link:hover {
+.VPSidebar .group .VPSidebarItem:is(.level-1, .level-2) .link:hover {
   background: var(--docs-pill);
 }
-.VPSidebar .group .VPSidebarItem.level-1 .link:hover .text {
+.VPSidebar .group .VPSidebarItem:is(.level-1, .level-2) .link:hover .text {
   color: var(--vp-c-text-1);
 }
-.VPSidebar .group .VPSidebarItem.level-1.is-active > .item > .link {
+.VPSidebar .group .VPSidebarItem:is(.level-1, .level-2).is-active > .item > .link {
   background: var(--docs-pill);
 }
-.VPSidebar .group .VPSidebarItem.level-1.is-active > .item > .link .text {
+.VPSidebar .group .VPSidebarItem:is(.level-1, .level-2).is-active > .item > .link .text {
   color: var(--vp-c-text-1);
   font-weight: 500;
 }
@@ -456,6 +456,20 @@ html {
     opacity: 1;
   }
 }
+/* A color in inline code (markdown.ts) carries a chip of itself */
+.color-chip {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-right: 0.35em;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(9, 9, 11, 0.16);
+  vertical-align: -0.1em;
+}
+.dark .color-chip {
+  box-shadow: inset 0 0 0 1px rgba(250, 250, 250, 0.22);
+}
+
 .prop-required {
   display: inline-block;
   margin-left: 6px;
@@ -608,6 +622,41 @@ html {
   border-radius: 10px;
   background: var(--vp-c-bg);
 }
+/* The versions of an example (the themes of the Theming page): a segmented control above it */
+.doc-preview-variants {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 12px;
+  padding: 3px;
+  border: 1px solid var(--docs-line);
+  border-radius: 9px;
+  background: var(--vp-c-bg-soft);
+}
+.doc-preview-variants button {
+  padding: 4px 12px;
+  border-radius: 6px;
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.doc-preview-variants button:hover {
+  color: var(--vp-c-text-1);
+}
+.doc-preview-variants button[aria-selected='true'] {
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  box-shadow:
+    0 0 0 1px var(--docs-line),
+    0 1px 2px rgba(9, 9, 11, 0.06);
+}
+@media (max-width: 639px) {
+  .VPDoc .doc-preview-variants {
+    margin-inline: 24px;
+  }
+}
+
 /* The frame keeps the measured height of its example (previews.ts) until the example reports it */
 .doc-preview-stage iframe {
   display: block;
@@ -739,4 +788,34 @@ html {
   color: var(--vp-c-text-1);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* ---------- Diagrams (MermaidDiagram.vue) ---------- */
+
+.mermaid-diagram {
+  margin: 20px 0;
+  padding: 20px 16px;
+  overflow-x: auto;
+  border: 1px solid var(--docs-line);
+  border-radius: 10px;
+  background: var(--vp-c-bg);
+  text-align: center;
+}
+.mermaid-diagram .mermaid-svg svg {
+  max-width: 100%;
+  height: auto;
+}
+.VPDoc .vp-doc .mermaid-source {
+  margin: 0;
+  padding: 0;
+  background: none;
+  text-align: left;
+  white-space: pre-wrap;
+}
+/* Edge labels stay readable where they cross a line */
+.mermaid-diagram .edgeLabel text {
+  paint-order: stroke;
+  stroke: var(--vp-c-bg);
+  stroke-width: 5px;
+  stroke-linejoin: round;
 }

@@ -17,8 +17,6 @@ function githubSlug(text: string): string {
     .replace(/\s/g, '-');
 }
 
-const COMPONENTS = ['time-grid', 'month', 'agenda'];
-
 const link = ([text, link]: string[]) => ({ text, link });
 
 const sidebar: DefaultTheme.SidebarItem[] = [
@@ -114,12 +112,8 @@ export default defineConfigWithTheme<DefaultTheme.Config & { release?: Release }
       {
         text: 'Docs',
         link: '/docs/getting-started',
-        activeMatch: `^/(docs|core|angular|react|native|meridiana)/(?!pricing|roadmap|${COMPONENTS.join('|')})`,
-      },
-      {
-        text: 'Components',
-        link: '/docs/time-grid',
-        activeMatch: `^/docs/(${COMPONENTS.join('|')})`,
+        // Every page of the sidebar: one item for all of them
+        activeMatch: '^/(docs|core|angular|react|native|meridiana)/(?!pricing|roadmap)',
       },
       { text: 'Pricing', link: '/docs/pricing' },
       { text: 'Roadmap', link: '/docs/roadmap' },

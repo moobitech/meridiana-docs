@@ -6,14 +6,105 @@ element carries `data-*` attributes and the theme styles them with Tailwind vari
 `data-today:bg-indigo-50` or `data-dragging:opacity-80`. A variant is more specific than a plain
 utility, so a state always wins over the base style of its slot, without `tailwind-merge`.
 
-There are three levels of customization.
+There are three levels of customization. Pick a theme above the example: the code beside it is
+the code of that theme.
+
+<!-- preview theme-switcher -->
+
+<!-- tabs -->
+
+```tsx [Default]
+// Default
+import { MeridianaProvider, MeridianaTimeGrid } from '@moobitech/meridiana-react';
+
+// The default theme: the classes of the slots and the --mer-* tokens of @moobitech/meridiana
+<MeridianaProvider weekStartsOn={1}>
+  <MeridianaTimeGrid
+    events={events}
+    viewDate={new Date()}
+    days={7}
+    dayStart={{ hour: 8, minute: 0 }}
+    dayEnd={{ hour: 18, minute: 0 }}
+    segmentHeight={24}
+    responsive
+  />
+</MeridianaProvider>;
+```
+
+```css [Brand]
+/* Brand */
+/* Your Tailwind entry: the tokens of your brand after the import */
+@import '@moobitech/meridiana';
+
+:root {
+  --mer-accent: #0f766e;
+  --mer-today: #f0fdfa;
+  --mer-default-event-bg: #ccfbf1;
+  --mer-default-event-border: #0f766e;
+  --mer-default-event-text: #134e4a;
+}
+
+.dark {
+  --mer-accent: #2dd4bf;
+  --mer-accent-contrast: #042f2e;
+  --mer-today: #134e4a;
+  --mer-default-event-bg: #134e4a;
+  --mer-default-event-border: #2dd4bf;
+  --mer-default-event-text: #ccfbf1;
+}
+```
+
+```tsx [Design system]
+// Design system
+import { createMeridianaTheme } from '@moobitech/meridiana-core';
+
+// Slots that replace the default classes: the look of your own design system
+const theme = createMeridianaTheme({
+  timeGrid: 'relative overflow-auto rounded-2xl border border-stone-200 bg-stone-50',
+  timeGridHeader: 'border-b border-stone-200 bg-stone-50',
+  timeGutter: 'border-r border-stone-200 text-right',
+  timeLabel: 'pr-2 text-xs text-stone-500',
+  allDayRow: 'border-b border-stone-200 bg-stone-100',
+  dayHeader: 'flex flex-col items-center gap-1 py-3 text-stone-500 data-today:text-orange-700',
+  dayHeaderDate: 'text-2xl font-light',
+  dayColumn: 'relative border-r border-stone-200 last:border-r-0 data-today:bg-orange-50',
+  slot: 'border-b border-stone-200/60 data-hour-start:border-stone-200',
+  event:
+    'absolute overflow-hidden rounded-xl bg-white px-2 py-1.5 text-xs text-stone-600 shadow-sm ' +
+    'ring-1 ring-stone-200 data-dragging:shadow-lg data-stacked:ring-stone-300',
+  eventTitle: 'truncate font-semibold text-stone-900',
+});
+
+<MeridianaProvider weekStartsOn={1} theme={theme}>
+  <MeridianaTimeGrid
+    events={events}
+    viewDate={new Date()}
+    days={7}
+    dayStart={{ hour: 8, minute: 0 }}
+    dayEnd={{ hour: 18, minute: 0 }}
+    segmentHeight={24}
+    responsive
+  />
+</MeridianaProvider>;
+```
+
+```css [Dark]
+/* Dark */
+/* Your Tailwind entry: the dark palette of the tokens follows the .dark class, e.g. on <html> */
+@import 'tailwindcss';
+@import '@moobitech/meridiana';
+
+@custom-variant dark (&:where(.dark, .dark *));
+```
+
+<!-- /tabs -->
+
+<!-- /preview -->
 
 ## 1. Colors only: CSS variables
 
 The default web theme reads its colors from the `--mer-*` variables of
 `@moobitech/meridiana`, which you already import. Override what you need after it:
-
-<!-- preview theme-colors -->
 
 ```css
 @import '@moobitech/meridiana';
@@ -37,50 +128,30 @@ The default web theme reads its colors from the `--mer-*` variables of
 }
 ```
 
-<!-- /preview -->
+This is "Brand" in the example at the top of this page.
 
-The example above draws events without a color of their own, so they take the default event
-colors. The tokens of the default theme, with their values in the current mode (switch the site to
-dark mode to see the dark palette):
+The events of the example have no color of their own, so they take the default event colors. The
+tokens of the default theme, in `@moobitech/meridiana/theme.css`:
 
-<!-- preview theme-tokens -->
-
-```css
-/* @moobitech/meridiana/theme.css, light; the dark palette is under .dark */
-:root {
-  --mer-surface: #ffffff;
-  --mer-surface-alt: #f8fafc;
-  --mer-surface-hover: #f1f5f9;
-  --mer-border: #e2e8f0;
-  --mer-text: #334155;
-  --mer-text-muted: #94a3b8;
-  --mer-weekend: #ef4444;
-  --mer-today: #eef2ff;
-  --mer-accent: #4f46e5;
-  --mer-accent-contrast: #ffffff;
-  --mer-now: #ef4444;
-  --mer-danger: #ef4444;
-  --mer-ok: #22c55e;
-  --mer-warning: #f59e0b;
-  --mer-default-event-bg: #e0e7ff;
-  --mer-default-event-border: #4f46e5;
-  --mer-default-event-text: #312e81;
-}
-```
-
-<!-- /preview -->
-
-| Variable | Used for |
-| --- | --- |
-| `--mer-surface`, `--mer-surface-alt`, `--mer-surface-hover` | backgrounds: grid, weekends and past days, hover |
-| `--mer-border` | lines and borders |
-| `--mer-text`, `--mer-text-muted` | text, secondary text |
-| `--mer-weekend` | weekend day names |
-| `--mer-today` | background of today |
-| `--mer-accent`, `--mer-accent-contrast` | today's number, active buttons |
-| `--mer-now` | the current-time line |
-| `--mer-ok`, `--mer-warning`, `--mer-danger` | status dots, invalid previews, danger menu entries |
-| `--mer-default-event-bg`, `--mer-default-event-border`, `--mer-default-event-text` | colors of the events without a color of their own |
+| Variable | Light | Dark | Used for |
+| --- | --- | --- | --- |
+| `--mer-surface` | `#ffffff` | `#1e293b` | the background of the grid |
+| `--mer-surface-alt` | `#f8fafc` | `#172033` | weekends and past days |
+| `--mer-surface-hover` | `#f1f5f9` | `#334155` | hover |
+| `--mer-border` | `#e2e8f0` | `#334155` | lines and borders |
+| `--mer-text` | `#334155` | `#e2e8f0` | text |
+| `--mer-text-muted` | `#94a3b8` | `#94a3b8` | secondary text |
+| `--mer-weekend` | `#ef4444` | `#f87171` | weekend day names |
+| `--mer-today` | `#eef2ff` | `#312e81` | the background of today |
+| `--mer-accent` | `#4f46e5` | `#818cf8` | today's number, active buttons |
+| `--mer-accent-contrast` | `#ffffff` | `#1e1b4b` | text on the accent |
+| `--mer-now` | `#ef4444` | `#f87171` | the current-time line |
+| `--mer-ok` | `#22c55e` | `#4ade80` | status dot ok |
+| `--mer-warning` | `#f59e0b` | `#fbbf24` | status dot warning |
+| `--mer-danger` | `#ef4444` | `#f87171` | status dot danger, invalid previews, danger menu entries |
+| `--mer-default-event-bg` | `#e0e7ff` | `#312e81` | the background of the events without a color of their own |
+| `--mer-default-event-border` | `#4f46e5` | `#818cf8` | their bar |
+| `--mer-default-event-text` | `#312e81` | `#e0e7ff` | their text |
 
 Dark mode follows the `.dark` class: the tokens have a dark palette under `.dark`. Add
 `@custom-variant dark (&:where(.dark, .dark *));` to your Tailwind entry to toggle it with the class.
@@ -92,7 +163,8 @@ on `:root`: it would replace the fallback of every event without that color.
 
 The other live examples of these docs set a few tokens to match the site: zinc greys, a lighter
 tint for today, weekend names in the muted color, slightly tighter event times, and in Month the days
-of the other months at full opacity. Without them you get the default theme, as in the swatches above.
+of the other months at full opacity. Without them you get the default theme, as in the table above and the example at the top of this
+page.
 
 ## 2. Small changes: extend the default theme
 

@@ -11,6 +11,7 @@ import FeatureGrid from './FeatureGrid.vue';
 import HomeHero from './HomeHero.vue';
 import InstallTabs from './InstallTabs.vue';
 import LicenseRequest from './LicenseRequest.vue';
+import MermaidDiagram from './MermaidDiagram.vue';
 import PlanCards from './PlanCards.vue';
 import PricingCards from './PricingCards.vue';
 import Showcase from './Showcase.vue';
@@ -38,6 +39,7 @@ export default {
     app.component('ClosingCta', ClosingCta);
     app.component('DocPreview', DocPreview);
     app.component('InstallTabs', InstallTabs);
+    app.component('MermaidDiagram', MermaidDiagram);
   },
   // The code groups of the frameworks follow the framework the reader picked last; the wide tables
   // tell when they scroll
