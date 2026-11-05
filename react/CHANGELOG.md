@@ -1,3 +1,15 @@
+## 0.4.5 (2026-11-05)
+
+### Fixes
+
+- **global:** a short event no longer cut at the bottom of its title in the time grid
+
+### Documentation
+
+- **global:** Community without support as in the license, the badge of the featured plan readable in dark
+- **global:** the React demo live on the home page of the site, behind the LIVE_DEMO switch
+- **global:** a form for the requests of keys and licenses, in place of the emails of the plans
+
 ## 0.4.4 (2026-10-26)
 
 ### Features

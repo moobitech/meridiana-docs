@@ -102,7 +102,7 @@ event: 'border-l-4 border-[var(--mer-event-border,var(--color-primary))] bg-[var
 | `dayColumn` | a day column | `today`, `past`, `weekend` |
 | `slot`, `slotLabel` | a segment of a column | `hour-start`, `disabled` |
 | `nowIndicator` | the current-time line | |
-| `event` | an event box, in every view's time grid and all-day row | `dragging`, `invalid`, `disabled`, `starts-before`, `ends-after`, `all-day`, `stacked`, `narrow`; React Native also `selected` |
+| `event` | an event box, in every view's time grid and all-day row | `dragging`, `invalid`, `disabled`, `starts-before`, `ends-after`, `all-day`, `stacked`, `narrow`, `compact` (shorter than two lines: the title only, centred); React Native also `selected` |
 | `eventTitle`, `eventTime`, `eventDescription` | texts of an event | |
 | `eventStatus` | the status dot | `ok`, `warning`, `danger` |
 | `eventMenuButton` | the "⋯" button | |

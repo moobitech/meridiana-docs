@@ -30,7 +30,7 @@ export const plans: Plan[] = [
       'Angular and React views',
       'Non-commercial, open source, or under €1M revenue',
       'At most 5 developers in a company',
-      'Updates, community support',
+      'Updates, no support',
     ],
     action: 'Request a free key',
     href: mailto('Meridiana Community key request', [

@@ -2,7 +2,8 @@
 // https://meridiana.moobitech.it. tools/export-docs.mjs copies site/ to the root of the docs
 // repository, next to the docs: the pages are those Markdown files, at their own paths (/docs/…), so
 // their relative links work on GitHub and here alike.
-import { defineConfig } from 'vitepress';
+import { type DefaultTheme, defineConfigWithTheme } from 'vitepress';
+import { latestRelease, type Release } from './release';
 
 const guide = [
   ['Getting started', '/docs/getting-started'],
@@ -14,7 +15,7 @@ const guide = [
   ['Core engine', '/docs/core'],
 ];
 
-export default defineConfig({
+export default defineConfigWithTheme<DefaultTheme.Config & { release?: Release }>({
   title: 'Meridiana',
   description:
     'Calendar and scheduler components for Angular, React and React Native, styled with Tailwind CSS.',
@@ -66,9 +67,15 @@ export default defineConfig({
     search: { provider: 'local' },
     outline: { level: [2, 3] },
     footer: {
-      message:
-        'Commercial software, free for the web with the Community plan. <a href="/LICENSE">License agreement</a>',
+      message: [
+        'Made by Moobi Tech',
+        '<a href="/LICENSE">License agreement</a>',
+        '<a href="/THIRD_PARTY_NOTICES">Third-party notices</a>',
+        '<a href="https://github.com/moobitech/meridiana-docs">Docs on GitHub</a>',
+      ].join(' · '),
       copyright: '© Moobi Tech S.r.l.s. · VAT IT04871490407',
     },
+    // The announcement badge of the home page (HomeHero)
+    release: latestRelease(),
   },
 });

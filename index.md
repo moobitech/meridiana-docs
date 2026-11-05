@@ -1,41 +1,24 @@
 ---
 layout: home
-
-hero:
-  name: Meridiana
-  text: The calendar for booking and scheduling apps
-  tagline: Agenda, Day, 3 days, Week and Month views for Angular, React and React Native, with drag, resize and context menus. Styled with Tailwind CSS.
-  image:
-    src: /hero.png
-    alt: The week view of Meridiana
-  actions:
-    - theme: brand
-      text: Get started
-      link: /docs/getting-started
-    - theme: alt
-      text: Pricing
-      link: /docs/pricing
-
-features:
-  - icon: 🗓️
-    title: Five views
-    details: Agenda, Day, 3 days, Week with excluded days, and Month with "+N more". The week shows three days on tablets and one on phones.
-  - icon: ✋
-    title: Drag, resize, touch
-    details: Move and resize with snapping, auto-scroll and your own validation, by mouse, keyboard or long press. Meridiana reports the change; your app saves it.
-  - icon: 🧩
-    title: One engine, three frameworks
-    details: Angular, React and React Native share the same engine, so every app behaves the same way. The core is plain TypeScript, to build your own renderer.
-  - icon: 🎨
-    title: Tailwind themes
-    details: Every element takes its classes from a named slot and its colors from CSS variables. Restyle a few slots, or replace the whole theme.
-  - icon: 📱
-    title: Made for phones
-    details: Long press, Gesture Handler, bottom sheet menus and colored dots in the month. Runs in Expo Go and on the web.
-  - icon: 🔒
-    title: Offline license
-    details: The key is checked on the device. No server, no tracking, and the versions you got stay licensed forever.
+titleTemplate: Calendar components for Angular, React and React Native
 ---
+
+<HomeHero />
+
+<Showcase />
+
+<UsedBy />
+
+<div class="home-section">
+
+## Built for booking and scheduling
+
+Five views and the interactions users expect, the same in Angular, React and React Native: one
+engine computes the layouts, thin renderers draw them.
+
+<FeatureGrid />
+
+</div>
 
 <div class="home-section">
 
@@ -95,8 +78,42 @@ The Angular and React views are free for individuals, open-source projects and s
 Commercial apps pay per application, with unlimited developers. React Native, and the
 [resource timeline](/docs/roadmap) when it ships, are part of the paid plans.
 
+<div class="terms">
+
+<div>
+
+### Is Community for you?
+
+The free Community plan covers the Angular and React views of one application, for
+([`LICENSE.md`](/LICENSE#_3-community-plan), section 3):
+
+- an individual, for non-commercial purposes;
+- an open-source project under a license approved by the Open Source Initiative;
+- an organization with **less than €1M of annual revenue** (affiliates included) and **at most 5
+  developers** working with Meridiana.
+
+</div>
+
+<div>
+
+### The versions you got stay licensed forever
+
+Every version released during your subscription stays licensed even if you do not renew: your
+application never breaks. Renew to use the versions released later
+([`LICENSE.md`](/LICENSE#_4-license-grant), section 4).
+
+The key is checked offline, on the device: no server, no tracking.
+
+</div>
+
+</div>
+
 <PlanCards />
+
+<LicenseRequest />
 
 [Compare the plans →](/docs/pricing)
 
 </div>
+
+<ClosingCta />

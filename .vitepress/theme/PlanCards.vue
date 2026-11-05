@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import { plans } from './plans';
+import { CONTACT_ANCHOR, CONTACT_ENDPOINT, requestedPlan } from './contact';
+import { type Plan, plans } from './plans';
+
+// With the endpoint of the form, a button leads to the form with its plan chosen; without it, it
+// opens an email
+const href = (plan: Plan) => (CONTACT_ENDPOINT ? `#${CONTACT_ANCHOR}` : plan.href);
+
+function choose(plan: Plan) {
+  if (CONTACT_ENDPOINT) requestedPlan.value = plan.name;
+}
 </script>
 
 <template>
@@ -13,7 +22,7 @@ import { plans } from './plans';
       <ul>
         <li v-for="feature in plan.features" :key="feature">{{ feature }}</li>
       </ul>
-      <a class="action" :href="plan.href">{{ plan.action }}</a>
+      <a class="action" :href="href(plan)" @click="choose(plan)">{{ plan.action }}</a>
     </div>
   </div>
   <p class="note">
@@ -49,7 +58,8 @@ import { plans } from './plans';
   margin: 0;
   padding: 0 10px;
   border-radius: 999px;
-  background: var(--vp-c-brand-1);
+  /* the filled colour of the buttons: white text above 4.5:1 in the dark theme too (the brand is lighter there) */
+  background: var(--landing-button-bg);
   color: var(--vp-c-white);
   font-size: 12px;
   font-weight: 600;
@@ -89,14 +99,14 @@ import { plans } from './plans';
   display: block;
   padding: 9px 14px;
   border-radius: 20px;
-  background: var(--vp-c-brand-1);
+  background: var(--landing-button-bg);
   color: var(--vp-c-white) !important;
   font-weight: 600;
   text-align: center;
   text-decoration: none !important;
 }
 .action:hover {
-  background: var(--vp-c-brand-2);
+  background: var(--landing-button-bg-hover);
 }
 .note {
   color: var(--vp-c-text-2);

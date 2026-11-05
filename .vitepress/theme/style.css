@@ -4,10 +4,9 @@
   --vp-c-brand-2: #4338ca;
   --vp-c-brand-3: #3730a3;
   --vp-c-brand-soft: rgba(79, 70, 229, 0.14);
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(120deg, #4f46e5 20%, #0ea5e9);
-  --vp-home-hero-image-background-image: linear-gradient(-45deg, #818cf8 40%, #38bdf8 60%);
-  --vp-home-hero-image-filter: blur(56px);
+  /* Filled buttons: the accent of the theme in light and dark, white text above 4.5:1 */
+  --landing-button-bg: #4f46e5;
+  --landing-button-bg-hover: #4338ca;
 }
 .dark {
   --vp-c-brand-1: #818cf8;
@@ -22,14 +21,8 @@
   display: none;
 }
 
-.VPHero .image-src {
-  max-width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 24px 60px -24px rgba(15, 23, 42, 0.45);
-}
-
 .home-section {
-  padding-top: 48px;
+  padding-top: 72px;
 }
 .home-section h2 {
   margin: 0 0 8px;
@@ -42,6 +35,45 @@
   color: var(--vp-c-text-2);
 }
 
+/* The actions of the home page: one filled, one outlined (.vp-doc a would underline them) */
+.button,
+.vp-doc a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+.button.primary,
+.vp-doc a.button.primary {
+  background: var(--landing-button-bg);
+  color: #fff;
+}
+.button.primary:hover {
+  background: var(--landing-button-bg-hover);
+}
+.button.secondary,
+.vp-doc a.button.secondary {
+  border-color: var(--vp-c-divider);
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+}
+.button.secondary:hover {
+  border-color: var(--vp-c-brand-1);
+}
+.button:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}
+
 /* Four plans: two by two beside the sidebar, one by one on phones */
 @media (min-width: 640px) {
   .pricing-page .plans {
@@ -51,5 +83,32 @@
 @media (max-width: 639px) {
   .plans {
     grid-template-columns: 1fr !important;
+  }
+}
+
+/* The two notes above the plans of the home page: who Community is for, and the perpetual license */
+.terms {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.terms > div {
+  padding: 4px 24px 8px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 14px;
+}
+.terms h3 {
+  margin-top: 20px;
+  font-size: 17px;
+}
+.terms p,
+.terms li {
+  color: var(--vp-c-text-2);
+  font-size: 15px;
+}
+@media (max-width: 767px) {
+  .terms {
+    grid-template-columns: 1fr;
   }
 }
