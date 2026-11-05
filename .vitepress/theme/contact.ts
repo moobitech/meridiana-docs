@@ -6,7 +6,7 @@ import { ref } from 'vue';
  * e.g. `https://formspree.io/f/abcdwxyz`. Empty: the form is hidden and the buttons of the plans
  * open an email, as before.
  */
-export const CONTACT_ENDPOINT = '';
+export const CONTACT_ENDPOINT = 'https://formspree.io/f/xbggbany';
 
 /** Where the requests go when the endpoint is not set or does not answer. */
 export const CONTACT_EMAIL = 'michele.bombardi@moobitech.it';
