@@ -85,7 +85,7 @@ Commercial apps pay per application, with unlimited developers. React Native, an
 ### Is Community for you?
 
 The free Community plan covers the Angular and React views of one application, for
-([`LICENSE.md`](/LICENSE#_3-community-plan), section 3):
+([`LICENSE.md`](/LICENSE#3-community-plan), section 3):
 
 - an individual, for non-commercial purposes;
 - an open-source project under a license approved by the Open Source Initiative;
@@ -100,7 +100,7 @@ The free Community plan covers the Angular and React views of one application, f
 
 Every version released during your subscription stays licensed even if you do not renew: your
 application never breaks. Renew to use the versions released later
-([`LICENSE.md`](/LICENSE#_4-license-grant), section 4).
+([`LICENSE.md`](/LICENSE#4-license-grant), section 4).
 
 The key is checked offline, on the device: no server, no tracking.
 

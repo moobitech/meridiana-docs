@@ -3,18 +3,29 @@
 `@moobitech/meridiana-native` — the Day, 3 days, Week, Month and Agenda views for React Native and
 Expo, with [Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/) for touch and
 [Uniwind](https://uniwind.dev) for the Tailwind classes. It runs in Expo Go and on the web through
-react-native-web.
+react-native-web. The live examples of these pages run the React (DOM) views: the native views draw
+the same layouts, with the gestures below.
 
 ## Setup
 
+<!-- install -->
+
 ```sh
-npm install @moobitech/meridiana @moobitech/meridiana-core @moobitech/meridiana-react @moobitech/meridiana-native date-fns
-npx expo install react-native-gesture-handler uniwind expo-application
+npm install @moobitech/meridiana \
+  @moobitech/meridiana-core \
+  @moobitech/meridiana-react \
+  @moobitech/meridiana-native \
+  date-fns
+npx expo install \
+  react-native-gesture-handler \
+  uniwind expo-application
 ```
+
+<!-- /install -->
 
 1. Configure Uniwind as its documentation says (`withUniwindConfig` in `metro.config.js`, a CSS entry).
 2. Add the classes of Meridiana to the CSS entry (Tailwind skips `node_modules`, see
-   [Getting started](getting-started.md#2-tailwind-css)):
+   [Installation](getting-started.md#2-tailwind-css)):
 
    ```css
    @import 'tailwindcss';
@@ -61,7 +72,8 @@ the "⋯" button (`showEventMenuButton`) opens the menu too.
 
 ## Components
 
-The props are those of the React components (see [React](react.md)), with these differences:
+The props are those of the React components (see [Time grid](time-grid.md#api-reference),
+[Month](month.md#api-reference) and [Agenda](agenda.md#api-reference)), with these differences:
 
 | Component | Extra props | Not available |
 | --- | --- | --- |

@@ -18,11 +18,19 @@ horizontal time axis:
 
 It will be a paid add-on, never part of the Community plan: see [Pricing](pricing.md).
 
-### Hosted demo
+### Hosted demos of Angular and React Native
 
-A public page with the demos of the three frameworks, to try every view and interaction without
-installing anything. Until then, ask for a live demo at the contact in [Pricing](pricing.md).
+The React demo is live (see "Released" below). Hosted demos of the Angular and React Native views
+are planned; until then, ask for a live demo at the contact in [Pricing](pricing.md).
 
 ## Released
+
+### Hosted demo (React)
+
+The [live demo](https://meridiana.moobitech.it/demo/) runs the React views in the browser: every
+view, drag and resize, context menus, light and dark. The doc pages of the
+[site](https://meridiana.moobitech.it) embed its examples next to their code.
+
+### Everything else
 
 See the changelog of each package, for example [`@moobitech/meridiana-core`](../core/CHANGELOG.md).

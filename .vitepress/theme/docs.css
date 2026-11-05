@@ -1,0 +1,742 @@
+/*
+ * The doc pages: near-monochrome greys (zinc), Geist, hairlines. The indigo of Meridiana stays on the
+ * live examples, the filled buttons, the focus rings and a few small highlights.
+ */
+
+:root {
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-soft: #f4f4f5;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-text-1: #09090b;
+  --vp-c-text-2: #52525b;
+  --vp-c-text-3: #6b6b73;
+  --vp-c-divider: #e4e4e7;
+  --vp-c-gutter: #e4e4e7;
+  --vp-c-border: #d4d4d8;
+  --vp-c-default-soft: #f4f4f5;
+
+  --vp-sidebar-bg-color: var(--vp-c-bg);
+  --vp-code-color: var(--vp-c-text-1);
+  --vp-code-bg: #f4f4f5;
+  --vp-code-block-bg: #fafafa;
+  --vp-code-lang-color: #63636b;
+  --vp-code-line-height: 1.65;
+  --vp-code-tab-bg: var(--vp-code-block-bg);
+  --vp-code-tab-divider: var(--vp-c-divider);
+  --vp-code-tab-text-color: var(--vp-c-text-2);
+  --vp-code-tab-active-bar-color: var(--vp-c-text-1);
+  --vp-code-copy-code-bg: var(--vp-c-bg);
+  --vp-code-copy-code-hover-bg: var(--vp-c-bg-soft);
+  --vp-local-search-highlight-bg: #4f46e5;
+
+  --docs-line: var(--vp-c-divider);
+  --docs-pill: #f4f4f5;
+  --docs-scroll-shadow: rgba(9, 9, 11, 0.16);
+  --docs-accent: #4f46e5;
+  /* About 70 characters of Geist at the body size */
+  --docs-measure: 38em;
+}
+
+.dark {
+  --vp-c-bg: #09090b;
+  --vp-c-bg-soft: #18181b;
+  --vp-c-bg-elv: #0f0f11;
+  --vp-c-text-1: #fafafa;
+  --vp-c-text-2: #a1a1aa;
+  --vp-c-text-3: #8e8e98;
+  --vp-c-divider: #27272a;
+  --vp-c-gutter: #18181b;
+  --vp-c-border: #3f3f46;
+  --vp-c-default-soft: #27272a;
+
+  --vp-code-bg: #1f1f23;
+  --vp-code-block-bg: #121214;
+  --vp-code-lang-color: #8e8e98;
+  --vp-code-copy-code-bg: #18181b;
+  --vp-code-copy-code-hover-bg: #27272a;
+  --vp-local-search-highlight-bg: #818cf8;
+
+  --docs-pill: #1f1f23;
+  --docs-scroll-shadow: rgba(0, 0, 0, 0.7);
+  --docs-accent: #818cf8;
+}
+
+/* Browser surfaces */
+::selection {
+  background: color-mix(in srgb, var(--docs-accent) 22%, transparent);
+}
+:focus-visible {
+  outline: 2px solid var(--docs-accent);
+  outline-offset: 2px;
+}
+html {
+  scrollbar-color: var(--vp-c-border) transparent;
+}
+
+/* ---------- Navigation bar ---------- */
+
+.VPNavBar .VPNavBarMenu .VPNavBarMenuLink {
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+}
+.VPNavBar .VPNavBarMenu .VPNavBarMenuLink:hover,
+.VPNavBar .VPNavBarMenu .VPNavBarMenuLink.active {
+  color: var(--vp-c-text-1);
+}
+.VPNavBar .VPNavBarMenu .VPNavBarMenuLink.active {
+  font-weight: 600;
+}
+
+/* A wide search field, with its shortcut */
+@media (min-width: 768px) {
+  .VPNavBarSearch .DocSearch-Button {
+    justify-content: flex-start;
+    width: 100%;
+    min-width: 220px;
+    max-width: 320px;
+    height: 36px;
+    padding: 0 8px 0 12px;
+    border: 1px solid var(--vp-c-divider);
+    border-radius: 8px;
+    background: var(--vp-c-bg-soft);
+  }
+  .VPNavBarSearch .DocSearch-Button:hover {
+    border-color: var(--vp-c-border);
+  }
+  .VPNavBarSearch .DocSearch-Button .DocSearch-Button-Container {
+    flex: 1;
+  }
+  .VPNavBarSearch .DocSearch-Button .DocSearch-Button-Placeholder {
+    font-size: 14px;
+    color: var(--vp-c-text-2);
+  }
+  .VPNavBarSearch .DocSearch-Button .DocSearch-Button-Keys {
+    margin-left: auto;
+  }
+  .VPNavBarSearch .DocSearch-Button .DocSearch-Button-Key {
+    border-color: var(--vp-c-divider);
+    background: var(--vp-c-bg);
+    color: var(--vp-c-text-2);
+  }
+}
+@media (min-width: 960px) {
+  .VPNavBarSearch {
+    flex-grow: 1;
+    padding-left: 24px;
+  }
+}
+
+/* ---------- Sidebar: page-coloured, compact, a grey pill for the page ---------- */
+
+@media (min-width: 960px) {
+  .VPSidebar {
+    border-right: 1px solid var(--docs-line);
+  }
+}
+.VPSidebar .group + .group {
+  border-top: 0;
+  padding-top: 4px;
+}
+.VPSidebar .group .VPSidebarItem.level-0 {
+  padding-bottom: 16px;
+}
+.VPSidebar .group .VPSidebarItem.level-0 > .item > .text,
+.VPSidebar .group .VPSidebarItem.level-0 > .item > a > .text,
+.VPSidebar .group .VPSidebarItem.level-0 > .item h2.text {
+  padding: 4px 0;
+  color: var(--vp-c-text-1);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.VPSidebar .group .VPSidebarItem.level-1 .item {
+  position: relative;
+}
+.VPSidebar .group .VPSidebarItem.level-1 .link {
+  margin: 1px 0 1px -8px;
+  padding: 0 8px;
+  border-radius: 6px;
+}
+.VPSidebar .group .VPSidebarItem.level-1 .text {
+  padding: 5px 0;
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+.VPSidebar .group .VPSidebarItem.level-1 .link:hover {
+  background: var(--docs-pill);
+}
+.VPSidebar .group .VPSidebarItem.level-1 .link:hover .text {
+  color: var(--vp-c-text-1);
+}
+.VPSidebar .group .VPSidebarItem.level-1.is-active > .item > .link {
+  background: var(--docs-pill);
+}
+.VPSidebar .group .VPSidebarItem.level-1.is-active > .item > .link .text {
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+}
+.VPSidebar .group .VPSidebarItem .indicator {
+  display: none;
+}
+
+/* ---------- Outline ("On this page") ---------- */
+
+.VPDocAsideOutline .outline-title {
+  color: var(--vp-c-text-1);
+  font-size: 13px;
+}
+.VPDocAsideOutline .VPDocOutlineItem .outline-link {
+  overflow: visible;
+  padding: 3px 0;
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  line-height: 20px;
+  white-space: normal;
+  text-overflow: clip;
+}
+.VPDocAsideOutline .VPDocOutlineItem .outline-link:hover,
+.VPDocAsideOutline .VPDocOutlineItem .outline-link.active {
+  color: var(--vp-c-text-1);
+}
+.VPDocAsideOutline .outline-marker {
+  background-color: var(--vp-c-text-1);
+}
+.VPDocAsideOutline .content {
+  border-left-color: var(--docs-line);
+}
+
+/* ---------- Content ---------- */
+
+@media (min-width: 1280px) {
+  .VPDoc.has-sidebar .container .content .content-container {
+    /* As wide as the column beside the outline: the week examples need it for seven days */
+    max-width: 848px;
+  }
+}
+
+.VPDoc .vp-doc {
+  color: var(--vp-c-text-1);
+  font-size: 15.5px;
+}
+.VPDoc .vp-doc p:not(.plan *),
+.VPDoc .vp-doc li:not(.plan *) {
+  line-height: 1.7;
+}
+/* Prose keeps a reading measure; examples, code and tables take the whole column */
+.VPDoc .vp-doc :is(p, ul, ol):not(td *, .plan *, .plans *, .doc-legal *, .doc-preview *) {
+  max-width: var(--docs-measure);
+}
+.VPDoc .vp-doc p:not(.plan *),
+.VPDoc .vp-doc li:not(.plan *),
+.VPDoc .vp-doc td {
+  color: var(--vp-c-text-2);
+}
+.VPDoc .vp-doc strong {
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+}
+
+.VPDoc .vp-doc h1 {
+  margin-bottom: 12px;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+/* The first paragraph of a page is its lead (the plan cards of the pricing page keep their own
+   type) */
+.VPDoc .vp-doc h1 + p {
+  margin-top: 0;
+  color: var(--vp-c-text-2);
+  font-size: 17px;
+  line-height: 1.6;
+}
+.VPDoc .vp-doc h2 {
+  margin: 56px 0 12px;
+  padding-top: 0;
+  border-top: 0;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.VPDoc .vp-doc h3:not(.plan *) {
+  margin: 36px 0 8px;
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+.VPDoc .vp-doc h4 {
+  font-size: 15.5px;
+  font-weight: 600;
+}
+
+/* Links: the text colour, underlined; the accent only on hover */
+.VPDoc .vp-doc a:not(.plan *) {
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--vp-c-border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s;
+}
+.VPDoc .vp-doc a:not(.plan *):hover {
+  color: var(--vp-c-text-1);
+  text-decoration-color: var(--docs-accent);
+}
+.VPDoc .vp-doc .header-anchor {
+  text-decoration: none;
+  color: var(--vp-c-text-3);
+}
+
+/* Inline code: subtle, and never broken inside a token */
+.VPDoc .vp-doc :not(pre) > code {
+  padding: 0.12em 0.36em;
+  border-radius: 5px;
+  background: var(--vp-code-bg);
+  color: var(--vp-code-color);
+  font-size: 0.86em;
+  white-space: nowrap;
+}
+.VPDoc .vp-doc :not(pre) > code.code-wrap {
+  white-space: normal;
+}
+.VPDoc .vp-doc a > code {
+  color: inherit;
+}
+.VPDoc .vp-doc h1 > code,
+.VPDoc .vp-doc h2 > code,
+.VPDoc .vp-doc h3 > code {
+  background: none;
+  padding: 0;
+  font-size: 0.92em;
+}
+
+/* Tables: hairlines, no zebra; a wide one scrolls in its frame, with a shadow at the edge that can
+   still scroll and, while there is more on the right (tables.ts), a fade and a "Scroll →" cue */
+.VPDoc .vp-doc .table-wrap {
+  position: relative;
+  margin: 20px 0;
+}
+.VPDoc .vp-doc .table-wrap.has-more {
+  margin-top: 36px;
+}
+.VPDoc .vp-doc .table-wrap.has-more::before {
+  content: 'Scroll →';
+  position: absolute;
+  top: -24px;
+  right: 0;
+  color: var(--vp-c-text-2);
+  font-size: 12px;
+  font-weight: 500;
+}
+.VPDoc .vp-doc .table-wrap.has-more::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 32px;
+  background: linear-gradient(to right, transparent, var(--vp-c-bg));
+  pointer-events: none;
+}
+.VPDoc .vp-doc table {
+  display: block;
+  overflow-x: auto;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 14px;
+  background:
+    linear-gradient(to right, var(--vp-c-bg) 30%, transparent) left / 40px 100% no-repeat local,
+    linear-gradient(to left, var(--vp-c-bg) 30%, transparent) right / 40px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--docs-scroll-shadow), transparent) left / 14px 100%
+      no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, var(--docs-scroll-shadow), transparent) right / 14px
+      100% no-repeat scroll;
+  scrollbar-width: thin;
+}
+.VPDoc .vp-doc tr,
+.VPDoc .vp-doc tr:nth-child(2n) {
+  border-top: 0;
+  background: transparent;
+}
+.VPDoc .vp-doc th,
+.VPDoc .vp-doc td {
+  padding: 9px 16px 9px 0;
+  border: 0;
+  border-bottom: 1px solid var(--docs-line);
+  background: transparent;
+  line-height: 1.55;
+  vertical-align: top;
+}
+.VPDoc .vp-doc td:last-child {
+  min-width: 14rem;
+}
+/* Types wrap at their spaces, never inside a word; names stay on one line */
+.VPDoc .vp-doc td:not(:first-child) code {
+  white-space: normal;
+}
+.VPDoc .vp-doc th {
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+}
+.VPDoc .vp-doc td:first-child code {
+  color: var(--vp-c-text-1);
+}
+
+/* Props tables (markdown.ts): code pills only for names and types, a link per row, a mark on the
+   required props */
+.VPDoc .vp-doc .props-table td:nth-child(n + 3) code {
+  padding: 0;
+  background: none;
+  color: var(--vp-c-text-1);
+}
+.VPDoc .vp-doc .props-table tr {
+  scroll-margin-top: calc(var(--vp-nav-height) + 24px);
+}
+.VPDoc .vp-doc .props-table tr:target td {
+  background: color-mix(in srgb, var(--docs-accent) 8%, transparent);
+}
+.VPDoc .vp-doc a.prop-anchor {
+  margin-left: 6px;
+  color: var(--vp-c-text-3);
+  font-weight: 400;
+  text-decoration: none;
+  opacity: 0;
+}
+.VPDoc .vp-doc tr:hover a.prop-anchor,
+.VPDoc .vp-doc a.prop-anchor:focus-visible {
+  opacity: 1;
+}
+/* On phones a props table is a list of cards: the name, then each cell under its header */
+@media (max-width: 639px) {
+  .VPDoc .vp-doc .props-table,
+  .VPDoc .vp-doc .props-table tbody,
+  .VPDoc .vp-doc .props-table tr,
+  .VPDoc .vp-doc .props-table td {
+    display: block;
+    min-width: 0;
+  }
+  .VPDoc .vp-doc .props-table {
+    overflow: visible;
+    background: none;
+  }
+  .VPDoc .vp-doc .props-table thead {
+    display: none;
+  }
+  .VPDoc .vp-doc .props-table tr {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--docs-line);
+  }
+  .VPDoc .vp-doc .props-table td {
+    padding: 2px 0;
+    border: 0;
+  }
+  .VPDoc .vp-doc .props-table td:first-child {
+    padding-bottom: 4px;
+  }
+  .VPDoc .vp-doc .props-table td:not(:first-child)::before {
+    content: attr(data-label);
+    display: inline-block;
+    min-width: 6.5em;
+    color: var(--vp-c-text-3);
+    font-size: 12px;
+  }
+  .VPDoc .vp-doc .props-table td:empty {
+    display: none;
+  }
+  .VPDoc .vp-doc a.prop-anchor {
+    opacity: 1;
+  }
+}
+.prop-required {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 6px;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 999px;
+  color: var(--vp-c-text-1);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 18px;
+  vertical-align: 1px;
+}
+
+/* Code blocks: a hairline frame, darker than the page in dark mode */
+.VPDoc .vp-doc div[class*='language-'] {
+  border: 1px solid var(--docs-line);
+  border-radius: 10px;
+  margin: 16px 0;
+}
+@media (max-width: 639px) {
+  .VPDoc .vp-doc div[class*='language-'],
+  .VPDoc .vp-doc .vp-code-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .VPDoc .vp-doc div[class*='language-'] {
+    border-radius: 10px;
+  }
+}
+/* No language label: tabs name the blocks, and the copy button keeps the corner to itself */
+.VPDoc .vp-doc div[class*='language-'] > span.lang {
+  display: none;
+}
+.VPDoc .vp-doc div[class*='language-'] code {
+  font-size: 13.5px;
+}
+
+/* Code groups: underline tabs in the text colour */
+.VPDoc .vp-doc .vp-code-group {
+  margin: 16px 0;
+}
+.VPDoc .vp-code-group .tabs {
+  border: 1px solid var(--docs-line);
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  box-shadow: none;
+}
+.VPDoc .vp-code-group .tabs label {
+  font-size: 13px;
+  font-weight: 500;
+}
+.VPDoc .vp-code-group .blocks div[class*='language-'] {
+  margin: 0;
+  border-radius: 0 0 10px 10px;
+}
+@media (max-width: 639px) {
+  .VPDoc .vp-doc .vp-code-group .tabs {
+    margin: 0;
+    border-radius: 10px 10px 0 0;
+  }
+}
+
+/* ---------- Live examples (DocPreview.vue) ---------- */
+
+/* The examples break out of the text column: the prose keeps its measure, the frame takes the room
+   around it, up to the sidebar and the outline on wide screens, edge to edge on phones. Tabs, the
+   demo link and the code move with it. */
+.doc-preview {
+  margin: 24px 0 32px;
+}
+@media (max-width: 639px) {
+  .VPDoc .doc-preview {
+    margin-inline: -24px;
+  }
+  .VPDoc .doc-preview-head,
+  .VPDoc .doc-preview-code {
+    padding-inline: 24px;
+  }
+  .VPDoc .doc-preview-stage {
+    border-inline: 0;
+    border-radius: 0;
+  }
+}
+@media (min-width: 768px) {
+  .VPDoc .doc-preview {
+    margin-inline: -16px;
+  }
+}
+@media (min-width: 960px) {
+  .VPDoc .doc-preview {
+    margin-inline: -32px;
+  }
+}
+@media (min-width: 1280px) {
+  .VPDoc.has-aside .doc-preview {
+    margin-inline: -32px -48px;
+  }
+}
+.doc-preview-tabs,
+.install-frameworks,
+.install-managers {
+  display: flex;
+  gap: 4px;
+}
+.doc-preview-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--docs-line);
+}
+.doc-preview-tabs {
+  margin-bottom: -1px;
+}
+.VPDoc .vp-doc a.doc-preview-open {
+  padding: 8px 2px;
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.VPDoc .vp-doc a.doc-preview-open:hover {
+  color: var(--vp-c-text-1);
+}
+.doc-preview-tabs button {
+  position: relative;
+  padding: 8px 10px;
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+  font-weight: 500;
+}
+.doc-preview-tabs button:hover,
+.doc-preview-tabs button[aria-selected='true'] {
+  color: var(--vp-c-text-1);
+}
+.doc-preview-tabs button[aria-selected='true']::after {
+  content: '';
+  position: absolute;
+  inset: auto 8px -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--vp-c-text-1);
+}
+.doc-preview-stage {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--docs-line);
+  border-radius: 10px;
+  background: var(--vp-c-bg);
+}
+/* The frame keeps the measured height of its example (previews.ts) until the example reports it */
+.doc-preview-stage iframe {
+  display: block;
+  width: 100%;
+  height: var(--preview-wide);
+  border: 0;
+  opacity: 0;
+  transition:
+    opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.doc-preview-stage iframe.ready {
+  opacity: 1;
+}
+@media (max-width: 639px) {
+  .doc-preview-stage iframe {
+    height: var(--preview-phone);
+  }
+}
+.doc-preview-loading {
+  position: absolute;
+  inset: 12px;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  border-radius: 8px;
+  background: linear-gradient(
+      100deg,
+      transparent 30%,
+      color-mix(in srgb, var(--vp-c-text-1) 5%, transparent) 50%,
+      transparent 70%
+    )
+    0 0 / 300% 100% var(--vp-c-bg-soft);
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  animation: doc-preview-shimmer 1.6s linear infinite;
+}
+@keyframes doc-preview-shimmer {
+  to {
+    background-position: -150% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .doc-preview-loading {
+    animation: none;
+  }
+}
+.doc-preview-code > :first-child {
+  margin-top: 0;
+}
+.doc-preview-code > :last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Install commands (InstallTabs.vue) ---------- */
+
+.install-tabs {
+  margin: 16px 0;
+  overflow: hidden;
+  border: 1px solid var(--docs-line);
+  border-radius: 10px;
+  background: var(--vp-code-block-bg);
+}
+.install-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--docs-line);
+}
+.install-head button {
+  padding: 3px 9px;
+  border-radius: 6px;
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.install-head button:hover {
+  color: var(--vp-c-text-1);
+}
+.install-head button[aria-selected='true'] {
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  box-shadow:
+    0 0 0 1px var(--docs-line),
+    0 1px 2px rgba(9, 9, 11, 0.06);
+}
+.install-managers button {
+  font-family: var(--vp-font-family-mono);
+  font-size: 12.5px;
+}
+.VPDoc .vp-doc .install-tabs div[class*='language-'] {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+/* ---------- Pager and the legal links ---------- */
+
+.VPDocFooter .pager-link {
+  border-color: var(--docs-line);
+  border-radius: 10px;
+}
+.VPDocFooter .pager-link:hover {
+  border-color: var(--vp-c-border);
+}
+.VPDocFooter .pager-link .title {
+  color: var(--vp-c-text-1);
+}
+
+.doc-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--docs-line);
+  color: var(--vp-c-text-3);
+  font-size: 13px;
+}
+.doc-legal a {
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+}
+.doc-legal a:hover {
+  color: var(--vp-c-text-1);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

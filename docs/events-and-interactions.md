@@ -2,24 +2,10 @@
 
 ## The event model
 
-Every view takes an array of `CalendarEvent<TMeta>` from `@moobitech/meridiana-core`:
-
-| Field | Type | Notes |
-| --- | --- | --- |
-| `id` | `string \| number` | Your id. Occurrences of a recurring event may share it: Meridiana tells them apart by `id` and `start`. |
-| `start` | `Date` | |
-| `end` | `Date?` | Excluded. Without it the event lasts 30 minutes in the time grid and one day elsewhere. |
-| `title` | `string` | |
-| `description` | `string?` | Shown under the title when the box is tall enough. Line breaks are kept. |
-| `status` | `'ok' \| 'warning' \| 'danger'`? | A small colored dot next to the title, e.g. how full a class is. |
-| `allDay` | `boolean?` | Drawn in the all-day row of the time grid. |
-| `color` | `{ primary, secondary?, text? }`? | `primary`: the bar and the dot; `secondary`: the background; `text`: the text. |
-| `cssClass` | `string?` | Extra classes on the event box (web). |
-| `draggable` | `boolean?` | `false` keeps this event still when the view allows moving. |
-| `resizable` | `{ start?, end? }`? | `false` on an edge keeps it fixed. |
-| `meta` | `TMeta?` | Your own data. Meridiana never reads it; templates and callbacks receive it typed. |
-
-Meridiana does not expand recurrences: pass the occurrences of the period you show.
+Every view takes an array of `CalendarEvent<TMeta>` from `@moobitech/meridiana-core`: an id, a
+start, an optional end, a title and your own data in `meta`. Meridiana does not expand recurrences:
+pass the occurrences of the period you show. Every field, and the other types the views use, are in
+[Event model](api/event-model.md).
 
 ## Clicks
 
@@ -56,6 +42,25 @@ interface CalendarMenuItem {
 | `slotMenu(date)` | time grid | an empty slot |
 | `dayMenu(date)` | month | a day cell |
 
+<!-- preview context-menu -->
+
+```tsx
+<MeridianaTimeGrid
+  events={events}
+  viewDate={viewDate}
+  days={3}
+  eventMenu={(event) => [
+    { label: 'Open', action: () => open(event) },
+    { label: 'Duplicate', disabled: true, action: () => {} },
+    { label: 'Delete', danger: true, action: () => remove(event) },
+  ]}
+  slotMenu={(date) => [{ label: 'New event here', action: () => create(date) }]}
+  showEventMenuButton
+/>
+```
+
+<!-- /preview -->
+
 An empty list means no menu (on the web the browser menu stays). How users open a menu:
 
 | | Web (Angular, React) | React Native |
@@ -89,8 +94,13 @@ interface EventChange<T> {
 **Meridiana does not change your events.** Save the change (and update your `events`), ask the
 user first, or ignore it: the event goes back to its place.
 
+<!-- preview drag-resize -->
+
 ```tsx
 <MeridianaTimeGrid
+  dayStart={{ hour: 7, minute: 0 }}
+  dayEnd={{ hour: 18, minute: 0 }}
+  segmentHeight={24}
   draggable
   resizable
   snapMinutes={15}
@@ -98,6 +108,8 @@ user first, or ignore it: the event goes back to its place.
   onEventChange={(change) => api.save(change.event.id, change.start, change.end)}
 />
 ```
+
+<!-- /preview -->
 
 - **Snapping**: `snapMinutes`, default one segment of the grid (`60 / segmentsPerHour`).
 - **Minimum length**: one snap step.
@@ -138,8 +150,25 @@ cannot change. The start edge resizes with the pointer only.
 
 With `overlap: 'cascade'` (the default), events that start within 30 minutes of each other sit side
 by side; an event that starts later is drawn one step in, reaches the right edge and lies over the
-earlier ones (`data-stacked`). Titles stay readable with many overlaps. `overlap: 'columns'` splits
-the column into equal parts instead.
+earlier ones (`data-stacked`). Titles stay readable with many overlaps.
+
+<!-- preview overlap-cascade -->
+
+```tsx
+<MeridianaTimeGrid events={events} viewDate={viewDate} days={1} overlap="cascade" />
+```
+
+<!-- /preview -->
+
+`overlap: 'columns'` splits the column into equal parts instead.
+
+<!-- preview overlap-columns -->
+
+```tsx
+<MeridianaTimeGrid events={events} viewDate={viewDate} days={1} overlap="columns" />
+```
+
+<!-- /preview -->
 
 A box narrower than 72px is *narrow* (`data-narrow`): it shows the title only and no "⋯" button; the
 full text is in its tooltip (web).

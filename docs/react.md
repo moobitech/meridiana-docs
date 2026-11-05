@@ -1,7 +1,49 @@
 # React
 
-`@moobitech/meridiana-react` — function components for React 19 (DOM), with no dependency besides
+`@moobitech/meridiana-react`: function components for React 19 (DOM), with no dependency besides
 React and the core. The context menu is built in.
+
+<!-- preview week -->
+
+```tsx
+<MeridianaTimeGrid
+  events={events}
+  viewDate={new Date()}
+  days={7}
+  dayStart={{ hour: 8, minute: 0 }}
+  dayEnd={{ hour: 18, minute: 0 }}
+  segmentHeight={24}
+  responsive
+/>
+```
+
+<!-- /preview -->
+
+## Installation
+
+<!-- install -->
+
+```sh
+npm install @moobitech/meridiana \
+  @moobitech/meridiana-core \
+  @moobitech/meridiana-react \
+  date-fns
+```
+
+<!-- /install -->
+
+Import the Tailwind entry next to Tailwind (see [Installation](getting-started.md#2-tailwind-css)),
+then wrap your app in the provider:
+
+```tsx
+import { MeridianaProvider } from '@moobitech/meridiana-react';
+
+<MeridianaProvider locale="en-GB" weekStartsOn={1} licenseKey="…">
+  <App />
+</MeridianaProvider>;
+```
+
+## Usage
 
 ```tsx
 import {
@@ -15,109 +57,24 @@ import {
 Pass stable functions (`useCallback`) to `eventMenu`, `isEventDisabled` and the other function props:
 a new function recomputes the view.
 
-## `MeridianaTimeGrid` — Day, 3 days, Week
+| Component | Views | Props and callbacks |
+| --- | --- | --- |
+| `MeridianaTimeGrid` | Day, 3 days, Week | [Time grid](time-grid.md#api-reference) |
+| `MeridianaMonthGrid` | Month | [Month](month.md#api-reference) |
+| `MeridianaAgenda` | Agenda | [Agenda](agenda.md#api-reference) |
 
-```tsx
-<MeridianaTimeGrid
-  events={events}
-  viewDate={viewDate}
-  days={7}
-  responsive
-  dayStart={{ hour: 8, minute: 0 }}
-  dayEnd={{ hour: 20, minute: 0 }}
-  maxHeight="70vh"
-  draggable
-  resizable
-  validateChange={sameDay}
-  eventMenu={eventMenu}
-  slotMenu={slotMenu}
-  showEventMenuButton
-  renderEvent={({ event, timeLabel, compact, narrow }) => (
-    <>
-      <p className="font-medium">{event.title}</p>
-      {!compact && !narrow && <p className="text-xs opacity-70">{timeLabel}</p>}
-    </>
-  )}
-  onEventClick={open}
-  onSlotClick={create}
-  onEventChange={save}
-  onVisibleDaysChange={setVisibleDays}
-/>
-```
+The props have the names of the Angular inputs, with render props instead of templates:
 
-Props: the same as the Angular inputs (see [Angular](angular.md#mer-time-grid--day-3-days-week)) —
-`events`, `viewDate`, `days`, `weekStartsOn`, `excludeDays`, `fillExcludedDays`, `startsWithToday`,
-`dayStart`, `dayEnd`, `segmentsPerHour`, `segmentHeight`, `eventGap`, `overlap`, `locale`,
-`responsive`, `maxHeight`, `showSlotTime`, `theme`, `isSlotDisabled`, `isEventDisabled`,
-`eventMenu`, `slotMenu`, `showEventMenuButton`, `eventMenuButtonLabel`, `draggable`, `resizable`,
-`snapMinutes`, `validateChange` — with render props instead of templates:
-
-| Prop | Receives |
-| --- | --- |
-| `renderEvent` | `{ event, placed, timeLabel, compact, roomy, narrow, disabled }` |
-| `renderMenuItem` | the `CalendarMenuItem` |
-
-Callbacks: `onEventClick`, `onSlotClick`, `onDayHeaderClick`, `onEventChange`, `onVisibleDaysChange`.
-
-## `MeridianaMonthGrid` — Month
-
-```tsx
-<MeridianaMonthGrid
-  events={events}
-  viewDate={viewDate}
-  maxEventsPerDay={3}
-  moreLabel={(n) => `+${n} more`}
-  dayMenu={dayMenu}
-  eventMenu={eventMenu}
-  onEventClick={open}
-  onDayClick={openDay}
-/>
-```
-
-Props: `events`, `viewDate`, `weekStartsOn`, `excludeDays`, `fixedWeeks`, `locale`,
-`maxEventsPerDay`, `responsive` (dots under 640px, default `true`), `theme`, `isEventDisabled`,
-`eventMenu`, `dayMenu`, `moreLabel`, `renderEvent(row)` (`row`: `{ event, timeLabel, disabled, … }`),
-`renderDot(row)` (the mark of an event in a compact cell instead of the colored dot, e.g. an icon for
-a state), `renderMenuItem`. Callbacks: `onEventClick`, `onDayClick`.
-
-## `MeridianaAgenda` — Agenda
-
-```tsx
-<MeridianaAgenda
-  events={events}
-  viewDate={viewDate}
-  days={7}
-  emptyLabel="Nothing planned"
-  renderEvent={(row) => (
-    <span className="flex flex-1 justify-between">
-      {row.event.title}
-      <small>{row.event.meta?.room}</small>
-    </span>
-  )}
-  onEventClick={open}
-  onDayClick={openDay}
-/>
-```
-
-Props: `events`, `viewDate`, `days`, `excludeDays`, `showEmptyDays`, `locale`, `allDayLabel`,
-`emptyLabel`, `theme`, `isEventDisabled`, `eventMenu`, `renderEvent(row)`, `renderMenuItem`.
-Callbacks: `onEventClick`, `onDayClick`.
+| Prop | View | Receives |
+| --- | --- | --- |
+| `renderEvent` | time grid | `{ event, placed, timeLabel, compact, roomy, narrow, disabled }` |
+| `renderEvent` | month | `row`: `{ event, timeLabel, disabled, … }` |
+| `renderDot` | month | `row`: the mark of an event in a compact cell instead of the colored dot, e.g. an icon for a state |
+| `renderEvent` | agenda | `row`: `{ event, item, timeLabel, disabled, … }` |
+| `renderMenuItem` | all | the `CalendarMenuItem` |
 
 ## Hooks without DOM
 
-The views are built on hooks that compute everything and draw nothing. Import them from
-`@moobitech/meridiana-react/hooks` (no `react-dom`) to build your own markup, or a renderer for
-another platform — `@moobitech/meridiana-native` uses them.
-
-| Hook | Returns |
-| --- | --- |
-| `useTimeGrid(options, width, gutter?)` | `columns` (days with slots and placed events, boxes in pixels and percent), `timeLabels`, `endLabel`, `nowLine`, `visibleDays`, `gridHeight`, `pixelsPerMinute` |
-| `useMonthGrid(options)` | `weeks` of cells with rows, dots and "+N", `weekdays`, `title` |
-| `useAgenda(options)` | days with their rows and time labels |
-| `useMeridianaOptions()` | the provider options |
-| `useMeridianaClasses(theme?)` | the merged theme |
-
-Utilities: `eventColorStyle(event)` (CSS variables of an event), `flag(on)` (a `data-*` value),
-`cx(...classes)`, `useContextMenu()` (`openAt` for `onContextMenu`, `openAtPoint`, `openBelow`) and
-`ContextMenu` (the built-in menu, to reuse in your own components), `useLongPress()` (long press with
-a finger, as the views use it for their menus).
+The views are built on hooks that compute everything and draw nothing, in
+`@moobitech/meridiana-react/hooks` (no `react-dom`): `useTimeGrid`, `useMonthGrid`, `useAgenda` and
+the utilities around them. See [Hooks and helpers](api/hooks-and-helpers.md).

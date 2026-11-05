@@ -72,23 +72,29 @@ The same calendar in [Angular](docs/angular.md) and [React Native](docs/react-na
 
 ## Documentation
 
-1. [Getting started](docs/getting-started.md) — install, Tailwind, provider, license key
-2. [Events and interactions](docs/events-and-interactions.md) — the event model, menus, move and
-   resize, validation, navigation
-3. [Theming](docs/theming.md) — CSS variables, slots, states, design systems, dark mode
-4. [Angular](docs/angular.md) — components, inputs, outputs and templates
-5. [React](docs/react.md) — components, props and render props
-6. [React Native](docs/react-native.md) — setup with Expo, gestures, bottom sheet, gluestack-ui
-7. [Core engine](docs/core.md) — the layout and interaction API, to build your own renderer
+1. [Installation](docs/getting-started.md) — install, Tailwind, provider, license key
+2. Components: [Time grid](docs/time-grid.md) (Day, 3 days, Week), [Month](docs/month.md),
+   [Agenda](docs/agenda.md) — examples, props, events
+3. [Events and interactions](docs/events-and-interactions.md) — menus, move and resize, validation,
+   navigation
+4. [Theming](docs/theming.md) — CSS variables, slots, states, design systems, dark mode
+5. [Angular](docs/angular.md), [React](docs/react.md) and [React Native](docs/react-native.md) —
+   setup, templates, render props, gestures
+6. API: [Core engine](docs/core.md), [Event model](docs/api/event-model.md),
+   [Provider and options](docs/api/provider.md), [Theme slots](docs/api/theme-slots.md),
+   [Hooks and helpers](docs/api/hooks-and-helpers.md)
+7. [Troubleshooting](docs/troubleshooting.md) — missing classes, the watermark, keys, peers
 8. [Licensing](docs/licensing.md) — evaluation, license key, renewals, how the offline check works
 9. [Pricing](docs/pricing.md) — plans and how to request a license
 10. [Roadmap](docs/roadmap.md) — what is planned, starting with the resource timeline
 
 ## Demos
 
-Every view and interaction runs in a demo for React, Angular and React Native. A hosted demo is
-on the [roadmap](docs/roadmap.md); until then, ask for a live demo at the contact in
-[Pricing](docs/pricing.md).
+Every view and interaction runs in a demo for React, Angular and React Native. The React demo is
+live at [meridiana.moobitech.it/demo](https://meridiana.moobitech.it/demo/), and the doc pages of
+the [site](https://meridiana.moobitech.it) show its examples next to their code. Hosted demos of
+Angular and React Native are on the [roadmap](docs/roadmap.md); until then, ask for a live demo at
+the contact in [Pricing](docs/pricing.md).
 
 ## License
 

@@ -13,6 +13,8 @@ There are three levels of customization.
 The default web theme reads its colors from the `--mer-*` variables of
 `@moobitech/meridiana`, which you already import. Override what you need after it:
 
+<!-- preview theme-colors -->
+
 ```css
 @import '@moobitech/meridiana';
 
@@ -23,7 +25,50 @@ The default web theme reads its colors from the `--mer-*` variables of
   --mer-default-event-border: #0f766e;
   --mer-default-event-text: #134e4a;
 }
+
+/* Dark mode, with the .dark class */
+.dark {
+  --mer-accent: #2dd4bf;
+  --mer-accent-contrast: #042f2e;
+  --mer-today: #134e4a;
+  --mer-default-event-bg: #134e4a;
+  --mer-default-event-border: #2dd4bf;
+  --mer-default-event-text: #ccfbf1;
+}
 ```
+
+<!-- /preview -->
+
+The example above draws events without a color of their own, so they take the default event
+colors. The tokens of the default theme, with their values in the current mode (switch the site to
+dark mode to see the dark palette):
+
+<!-- preview theme-tokens -->
+
+```css
+/* @moobitech/meridiana/theme.css, light; the dark palette is under .dark */
+:root {
+  --mer-surface: #ffffff;
+  --mer-surface-alt: #f8fafc;
+  --mer-surface-hover: #f1f5f9;
+  --mer-border: #e2e8f0;
+  --mer-text: #334155;
+  --mer-text-muted: #94a3b8;
+  --mer-weekend: #ef4444;
+  --mer-today: #eef2ff;
+  --mer-accent: #4f46e5;
+  --mer-accent-contrast: #ffffff;
+  --mer-now: #ef4444;
+  --mer-danger: #ef4444;
+  --mer-ok: #22c55e;
+  --mer-warning: #f59e0b;
+  --mer-default-event-bg: #e0e7ff;
+  --mer-default-event-border: #4f46e5;
+  --mer-default-event-text: #312e81;
+}
+```
+
+<!-- /preview -->
 
 | Variable | Used for |
 | --- | --- |
@@ -44,6 +89,10 @@ The colors of a single event (`event.color`) arrive on that event as `--mer-even
 `--mer-event-color` (`primary`), `--mer-event-bg` (`secondary`) and `--mer-event-text` (`text`). The
 default theme reads them first and falls back to `--mer-default-event-*`. Never set `--mer-event-*`
 on `:root`: it would replace the fallback of every event without that color.
+
+The other live examples of these docs set a few tokens to match the site: zinc greys, a lighter
+tint for today, weekend names in the muted color, slightly tighter event times, and in Month the days
+of the other months at full opacity. Without them you get the default theme, as in the swatches above.
 
 ## 2. Small changes: extend the default theme
 
@@ -93,37 +142,14 @@ event: 'border-l-4 border-[var(--mer-event-border,var(--color-primary))] bg-[var
 
 ## Slots and states
 
-| Slot | Element | `data-*` states |
-| --- | --- | --- |
-| `root` | the host of every view | |
-| `toolbar`, `toolbarTitle`, `toolbarButton`, `viewSwitcher`, `viewButton` | not drawn by the views: use them in your own toolbar to match | `toolbarButton`: `disabled`; `viewButton`: `active` |
-| `dayHeader`, `dayHeaderWeekday`, `dayHeaderDate` | day headers of the time grid | `today`, `past`, `weekend` |
-| `timeGrid`, `timeGridHeader`, `timeGutter`, `timeLabel`, `allDayRow` | time grid frame, hours | |
-| `dayColumn` | a day column | `today`, `past`, `weekend` |
-| `slot`, `slotLabel` | a segment of a column | `hour-start`, `disabled` |
-| `nowIndicator` | the current-time line | |
-| `event` | an event box, in every view's time grid and all-day row | `dragging`, `invalid`, `disabled`, `starts-before`, `ends-after`, `all-day`, `stacked`, `narrow`, `compact` (shorter than two lines: the title only, centred); React Native also `selected` |
-| `eventTitle`, `eventTime`, `eventDescription` | texts of an event | |
-| `eventStatus` | the status dot | `ok`, `warning`, `danger` |
-| `eventMenuButton` | the "⋯" button | |
-| `resizeHandle` | a resize handle | `edge-start`, `edge-end` |
-| `contextMenu`, `contextMenuItem` | menu and its entries | `contextMenuItem`: `disabled`, `danger` |
-| `monthGrid`, `monthWeekday` | Month frame, weekday names | |
-| `monthCell` | a day of the Month | `today`, `past`, `weekend`, `outside` |
-| `monthDayNumber` | its number | `today`, `outside` |
-| `monthEvent`, `monthMore` | an event row, the "+N" link | `monthEvent`: `disabled` |
-| `agenda`, `agendaDay`, `agendaDayHeader` | Agenda frame, a day, its header | `agendaDayHeader`: `today`, `weekend` |
-| `agendaItem`, `agendaItemTime` | an Agenda row, its time | `agendaItem`: `all-day`, `disabled` |
-| `agendaEmpty` | the empty message | |
-| `eventDot` | the color dot (Month, Agenda) | |
-
-The list is also exported as `MERIDIANA_SLOT_STATES`.
+Every slot, the element it styles and its `data-*` states are listed in
+[Theme slots](api/theme-slots.md), with `createMeridianaTheme` and `MERIDIANA_SLOT_STATES`.
 
 ## Tailwind sources
 
 The theme classes live in the JavaScript of the packages and in your theme file, so Tailwind must
 scan both. Tailwind v4 detects your own sources but skips `node_modules`; import
-`@moobitech/meridiana` for the packages (see [Getting started](getting-started.md#2-tailwind-css)).
+`@moobitech/meridiana` for the packages (see [Installation](getting-started.md#2-tailwind-css)).
 Import it with your own theme too: the components carry layout
 classes that no slot replaces.
 

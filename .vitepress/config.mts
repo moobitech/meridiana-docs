@@ -3,16 +3,73 @@
 // repository, next to the docs: the pages are those Markdown files, at their own paths (/docs/…), so
 // their relative links work on GitHub and here alike.
 import { type DefaultTheme, defineConfigWithTheme } from 'vitepress';
+import { docsMarkdown } from './markdown';
 import { latestRelease, type Release } from './release';
+import { darkCode, lightCode } from './shiki';
+import { DEMO_PATH, LIVE_DEMO } from './theme/showcase';
 
-const guide = [
-  ['Getting started', '/docs/getting-started'],
-  ['Angular', '/docs/angular'],
-  ['React', '/docs/react'],
-  ['React Native', '/docs/react-native'],
-  ['Theming', '/docs/theming'],
-  ['Events and interactions', '/docs/events-and-interactions'],
-  ['Core engine', '/docs/core'],
+/** The anchor GitHub gives a heading: lower case, punctuation dropped, spaces to dashes. */
+function githubSlug(text: string): string {
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s_-]/gu, '')
+    .replace(/\s/g, '-');
+}
+
+const COMPONENTS = ['time-grid', 'month', 'agenda'];
+
+const link = ([text, link]: string[]) => ({ text, link });
+
+const sidebar: DefaultTheme.SidebarItem[] = [
+  {
+    text: 'Get started',
+    items: [
+      ['Installation', '/docs/getting-started'],
+      ['Licensing', '/docs/licensing'],
+      ['Troubleshooting', '/docs/troubleshooting'],
+    ].map(link),
+  },
+  {
+    text: 'Components',
+    items: [
+      ['Time grid', '/docs/time-grid'],
+      ['Month', '/docs/month'],
+      ['Agenda', '/docs/agenda'],
+    ].map(link),
+  },
+  {
+    text: 'Guide',
+    items: [
+      ['Events and interactions', '/docs/events-and-interactions'],
+      ['Theming', '/docs/theming'],
+      ['Angular', '/docs/angular'],
+      ['React', '/docs/react'],
+      ['React Native', '/docs/react-native'],
+    ].map(link),
+  },
+  {
+    text: 'API',
+    items: [
+      ...[
+        ['Core engine', '/docs/core'],
+        ['Event model', '/docs/api/event-model'],
+        ['Provider and options', '/docs/api/provider'],
+        ['Theme slots', '/docs/api/theme-slots'],
+        ['Hooks and helpers', '/docs/api/hooks-and-helpers'],
+      ].map(link),
+      {
+        // The READMEs of the npm packages, at their own paths: the same files npm and GitHub show,
+        // in one collapsed item
+        text: 'Packages',
+        collapsed: true,
+        items: ['meridiana', 'core', 'angular', 'react', 'native'].map((name) => ({
+          text: name === 'meridiana' ? '@moobitech/meridiana' : `meridiana-${name}`,
+          link: `/${name}/README`,
+        })),
+      },
+    ],
+  },
 ];
 
 export default defineConfigWithTheme<DefaultTheme.Config & { release?: Release }>({
@@ -24,7 +81,26 @@ export default defineConfigWithTheme<DefaultTheme.Config & { release?: Release }
   lastUpdated: false,
   // The README is the landing page on GitHub; here the home page (index.md) takes its place
   srcExclude: ['README.md', 'node_modules/**'],
-  head: [['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }]],
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
+    [
+      'link',
+      {
+        rel: 'preload',
+        href: '/fonts/Geist-Variable.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: '',
+      },
+    ],
+  ],
+  markdown: {
+    // The anchors of the headings as GitHub makes them (`## 2. Tailwind CSS` → `#2-tailwind-css`), so the
+    // links between the Markdown files work on both: VitePress would write `#_2-tailwind-css`
+    anchor: { slugify: githubSlug },
+    theme: { light: lightCode, dark: darkCode },
+    config: docsMarkdown,
+  },
   // The plans of the pricing page are cards here (PlanCards); its Markdown table is for GitHub
   transformPageData(pageData) {
     if (pageData.relativePath === 'docs/pricing.md') {
@@ -38,31 +114,18 @@ export default defineConfigWithTheme<DefaultTheme.Config & { release?: Release }
       {
         text: 'Docs',
         link: '/docs/getting-started',
-        activeMatch: '^/(docs|core|angular|react|native|meridiana)/(?!pricing|roadmap)',
+        activeMatch: `^/(docs|core|angular|react|native|meridiana)/(?!pricing|roadmap|${COMPONENTS.join('|')})`,
+      },
+      {
+        text: 'Components',
+        link: '/docs/time-grid',
+        activeMatch: `^/docs/(${COMPONENTS.join('|')})`,
       },
       { text: 'Pricing', link: '/docs/pricing' },
       { text: 'Roadmap', link: '/docs/roadmap' },
+      ...(LIVE_DEMO ? [{ text: 'Demo', link: DEMO_PATH, target: '_blank' }] : []),
     ],
-    sidebar: [
-      { text: 'Guide', items: guide.map(([text, link]) => ({ text, link })) },
-      {
-        text: 'Packages',
-        items: ['meridiana', 'core', 'angular', 'react', 'native'].map((name) => ({
-          text: name === 'meridiana' ? '@moobitech/meridiana' : `@moobitech/meridiana-${name}`,
-          link: `/${name}/README`,
-        })),
-      },
-      {
-        text: 'License',
-        items: [
-          { text: 'Pricing', link: '/docs/pricing' },
-          { text: 'Licensing', link: '/docs/licensing' },
-          { text: 'License agreement', link: '/LICENSE' },
-          { text: 'Third-party notices', link: '/THIRD_PARTY_NOTICES' },
-          { text: 'Roadmap', link: '/docs/roadmap' },
-        ],
-      },
-    ],
+    sidebar,
     socialLinks: [{ icon: 'github', link: 'https://github.com/moobitech/meridiana-docs' }],
     search: { provider: 'local' },
     outline: { level: [2, 3] },
