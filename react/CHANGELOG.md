@@ -1,3 +1,14 @@
+## 0.4.6 (2026-11-12)
+
+### Documentation
+
+- **global:** mermaid diagrams on the site, light and dark, as GitHub draws them
+- **global:** theming in four themes, one table of tokens, one active item, examples that step on phones
+- **global:** the live examples break out of the text column, each view opens with its own
+- **global:** API pages per concept, a troubleshooting page, the examples matching their code
+- **global:** the hosted React demo is live, the Angular and React Native ones planned
+- **global:** one page per view, with examples and an API reference
+
 ## 0.4.5 (2026-11-05)
 
 ### Fixes
