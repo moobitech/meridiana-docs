@@ -1,3 +1,7 @@
+## 0.4.7 (2026-11-12)
+
+This was a version bump only for @moobitech/meridiana to align it with other projects, there were no code changes.
+
 ## 0.4.6 (2026-11-12)
 
 ### Documentation
