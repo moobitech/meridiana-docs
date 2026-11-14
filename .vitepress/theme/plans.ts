@@ -34,6 +34,7 @@ export const plans: Plan[] = [
     ],
     action: 'Request a free key',
     href: mailto('Meridiana Community key request', [
+      'Licensee (full legal name of the individual, organization or project):',
       ...app,
       'Who you are (individual, open-source project with its repository, or organization):',
       'I confirm we meet the Community conditions (non-commercial, open source, or less than EUR 1M revenue and at most 5 developers): yes',
